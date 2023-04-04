@@ -1,1 +1,2 @@
-# anytrack-pixel-helper
+# <> Anytrack Pixel Helper
+## Browser extension
