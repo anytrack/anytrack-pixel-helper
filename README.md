@@ -84,7 +84,7 @@ Meta pixel helper
 The code should be submitted as a PR to the [https://github.com/anytrack/anytrack-pixel-helper](https://github.com/anytrack/anytrack-pixel-helper) repository. The app should be built using the following technologies:
 
 * Typescript + React 18 or Preact 10
-* Styling with Tailwind
+* Styling with MaterialUI (^v5)
 * Jest or Vitest as a testing framework
 * Vite or Webpack 5 as a bundler
 
