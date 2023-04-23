@@ -56,10 +56,8 @@ Other third-party pixels that also need to be detected on the page:
 	 4. If a pixel is configured (in config, pixels array), but the code was installed manually → display the warning message “AnyTrack automatically installs pixels on your website. Please remove <pixel name> pixel code from this page to avoid event duplication.“
 8. As an Administrator, I want to get usage statistics of the extension in Google Analytics GA4.
 	 1. Should track:
-		1. installation.
-		2. removal.
-		3. open.
-		4. click outside.
+		1. open.
+		2. click outside.
 	2. GA4 tracking id should be configurable before building the extension.
 9. As a Developer, I should be able to extend the functionality by adding new warnings/errors/notices for custom cases.
 	1. Should be an easy programming interface (SDK) to add custom messages to the notifications panel.
