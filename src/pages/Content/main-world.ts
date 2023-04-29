@@ -1,5 +1,20 @@
-console.log("inside main-world content script abc")
+import {ATCustomEvent as ATCustomEvent} from "../../global/entity/ATCustomEvent"
+import {ATEvent} from "../../global/entity/ATEvent";
+
+const main = () => {
+    AnyTrack(
+        'bind',
+        'ViewContent', // standard event name
+        function (e: ATEvent) {
+            document.dispatchEvent(new CustomEvent(ATCustomEvent.SendAnyTrackEventToContentScript, {
+                detail: {
+                    payload: e
+                }
+            }));
+        }
+    )
+}
 window.addEventListener("load", function () {
-    // @ts-ignore
     console.log(AnyTrack('aid'))
+    main();
 })
