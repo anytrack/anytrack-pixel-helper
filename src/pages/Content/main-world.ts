@@ -13,8 +13,26 @@ const main = () => {
             }));
         }
     )
+
+    AnyTrack(
+        'bind',
+        'Purchase', // standard event name
+        function (e: ATEvent) {
+            document.dispatchEvent(new CustomEvent(ATCustomEvent.SendAnyTrackEventToContentScript, {
+                detail: {
+                    payload: e
+                }
+            }));
+        }
+    )
 }
 window.addEventListener("load", function () {
-    console.log(AnyTrack('aid'))
-    main();
+    if (typeof AnyTrack !== 'undefined')
+        console.log(AnyTrack('aid'))
+    const t = setInterval(function()  {
+        if (typeof AnyTrack !== undefined) {
+            main();
+            clearInterval(t)
+        }
+    }, 1000)
 })
