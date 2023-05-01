@@ -15,3 +15,16 @@ export interface ATEvent {
     shippingPrice: string,
     taxPrice: string,
 }
+
+export enum StandardEventName {
+    PageView = "PageView",
+    OutboundClick = "OutboundClick",
+    FormSubmit = "FormSubmit",
+    ViewContent = "ViewContent",
+    AddToCart = "AddToCart",
+    InitiateCheckout = "InitiateCheckout",
+    Lead = "Lead",
+    CompleteRegistration = "CompleteRegistration",
+    Purchase = "Purchase",
+    AddPaymentInfo = "AddPaymentInfo"
+}
