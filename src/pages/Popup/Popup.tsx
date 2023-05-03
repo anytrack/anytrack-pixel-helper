@@ -1,11 +1,11 @@
 import React from 'react';
 // @ts-ignore
 import logo from '../../assets/img/logo.svg';
-import './Popup.css';
-import {Button, Typography} from "@mui/material";
+import {Avatar, Box, Button, Divider, Typography} from "@mui/material";
 import {ATMessageType} from "../../global/entity/ATMessage";
 import {ATEvent} from "../../global/entity/ATEvent";
 import {getActiveTab} from "../../global/utils";
+import EventLog from './modules/EventLog';
 
 const Popup = () => {
     const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
@@ -40,26 +40,44 @@ const Popup = () => {
 
     return (
         <div className="App">
-            <header className="App-header">
+            <Box
+                className={"header"}
+            >
+                <Avatar
+                    src={logo}
+                    className={"logo"}
+                />
                 <Typography
-                    variant={"h6"}
-                >
-                    AnyTrack Event Log
-                </Typography>
-                <Button
-                    onClick={() => setATEventLog([])}
+                    variant={"body1"}
                     sx={{
-                        color: 'red'
+                        fontWeight: 'bold'
                     }}
                 >
-                    Clear events
-                </Button>
-                <ul>
-                    {ATEventLog.reverse().map((event: ATEvent) => <li> {event.eventName + '-' + event.eventTime}</li>)}
-                </ul>
-            </header>
+                    AnyTrack Pixel Helper
+                </Typography>
+            </Box>
+            <Divider
+                sx={{
+                    mt: 2
+                }}
+            />
+            <Button
+                onClick={() => setATEventLog([])}
+                sx={{
+                    color: 'red'
+                }}
+            >
+                Clear events
+            </Button>
+            <EventLog
+                ATEventLog={ATEventLog}
+            />
         </div>
     );
 };
 
 export default Popup;
+
+
+
+
