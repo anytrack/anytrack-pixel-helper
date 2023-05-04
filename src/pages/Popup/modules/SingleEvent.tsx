@@ -1,10 +1,10 @@
-import {Collapse, List, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
+import {Box, Collapse, ListItemButton, ListItemIcon, ListItemText, Paper} from '@mui/material';
 import React from 'react';
 import {ATEvent} from "../../../global/entity/ATEvent";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
-import StarBorder from "@mui/icons-material/StarBorder";
 import SingleEventDetail from "./SingleEventDetail";
+import {grey} from '@mui/material/colors';
 
 type Props = {
     event: ATEvent
@@ -13,12 +13,18 @@ const SingleEvent: React.FC<Props> = ({event}) => {
     const [open, setOpen] = React.useState(false);
 
     return (
-        <>
+        <Box
+            component={Paper}
+            sx={{
+                backgroundColor: open ? grey[50] : ''
+            }}
+            elevation={open ? 1 : 0}
+        >
             <ListItemButton
                 onClick={() => setOpen(!open)}
                 disableGutters={true}
                 sx={{
-                    px: 1
+                    px: 1,
                 }}
             >
                 <ListItemIcon
@@ -52,12 +58,12 @@ const SingleEvent: React.FC<Props> = ({event}) => {
             <Collapse
                 in={open} timeout="auto" unmountOnExit
                 sx={{
-                    px: 2.5
+                    px: 2.5,
                 }}
             >
                 <SingleEventDetail event={event}/>
             </Collapse>
-        </>
+        </Box>
     )
 }
 
