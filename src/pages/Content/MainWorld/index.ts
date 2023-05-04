@@ -9,7 +9,6 @@ const main = () => {
         }
     }));
 
-
     Object.values(StandardEventName)
         .forEach(eventName => {
             AnyTrack(
@@ -26,9 +25,6 @@ const main = () => {
         })
 }
 window.addEventListener("load", function () {
-    if (typeof AnyTrack !== 'undefined')
-        console.log(AnyTrack('aid'))
-
     // When the page is loaded, sometimes AnyTrack SDK is not yet available
     const t = setInterval(function()  {
         if (typeof AnyTrack !== 'undefined') {
