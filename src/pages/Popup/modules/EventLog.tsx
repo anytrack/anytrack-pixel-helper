@@ -15,10 +15,8 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
     }
     return (
         <List
-            sx={{ width: '100%', bgcolor: 'background.paper', mt: 0.5 }}
+            sx={{ width: '100%', bgcolor: 'background.paper', mt: 0.5, px: 0.5 }}
             dense
-            component="nav"
-            aria-labelledby="nested-list-subheader"
             subheader={
             <Box
                 sx={{
