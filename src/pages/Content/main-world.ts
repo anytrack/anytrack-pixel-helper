@@ -31,7 +31,7 @@ window.addEventListener("load", function () {
 
     // When the page is loaded, sometimes AnyTrack SDK is not yet available
     const t = setInterval(function()  {
-        if (typeof AnyTrack !== undefined) {
+        if (typeof AnyTrack !== 'undefined') {
             main();
             clearInterval(t)
         }
