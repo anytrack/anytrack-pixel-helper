@@ -1,5 +1,4 @@
-import { Box, Typography } from '@mui/material';
-import { lightBlue } from '@mui/material/colors';
+import {Box, Typography} from '@mui/material';
 import React from 'react';
 import {ATEvent} from "../../../global/entity/ATEvent";
 import {displaydValue} from "../../../global/utils";
@@ -7,11 +6,15 @@ import {displaydValue} from "../../../global/utils";
 type Props = {
     event: ATEvent
 }
+
+const displayedAttributes = ['target', 'eventId', 'clickId', 'clientId', 'eventName', 'eventValue', 'currency',
+    'trackingGroup', 'link', 'brandName', 'transactionId', 'shippingPrice', 'taxPrice', 'items']
 const SingleEventDetail: React.FC<Props> = ({event}) => {
     return (
         <>
             {
                 Object.keys(event)
+                    .filter(attr => displayedAttributes.includes(attr))
                     .map((key: string) => (
                     <Box
                         key={key}
