@@ -43,9 +43,14 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
                 </ListItemIcon>
                 <ListItemText
                     primary={event.eventName}
+                    secondary={event.eventTime}
                     className={"text-truncate"}
                     sx={{
                         '& .MuiListItemText-primary': {
+                            fontSize: '0.875rem',
+                            lineHeight: 1.125
+                        },
+                        '& .MuiListItemText-secondary': {
                             fontSize: '0.875rem',
                             lineHeight: 1.125
                         }
