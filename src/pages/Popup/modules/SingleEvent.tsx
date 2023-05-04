@@ -18,7 +18,7 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
             component={Paper}
             sx={{
                 backgroundColor: open ? grey[50] : '',
-                mt: !index ? 2 : 0
+                mt: !index ? 1 : 0
             }}
             elevation={open ? 1 : 0}
         >

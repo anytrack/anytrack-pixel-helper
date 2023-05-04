@@ -1,32 +1,57 @@
 import React from 'react';
-import {List, ListSubheader} from "@mui/material";
+import {Box, IconButton, List, ListSubheader} from "@mui/material";
 import {ATEvent} from '../../../global/entity/ATEvent';
 import SingleEvent from './SingleEvent';
+// @ts-ignore
+import ArrowIconImg from '../../../assets/img/ArrowIcon.png'
 
 type Props = {
     ATEventLog: ATEvent[],
     AId: string
 }
 const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
+    const handleIconClick = () => {
+        window.open(`https://dashboard.anytrack.io/asset/settings?aid=${AId}`)
+    }
     return (
         <List
-            sx={{ width: '100%', bgcolor: 'background.paper', mt: 1.5 }}
+            sx={{ width: '100%', bgcolor: 'background.paper', mt: 0.5 }}
             dense
             component="nav"
             aria-labelledby="nested-list-subheader"
             subheader={
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                }}
+            >
                 <ListSubheader
                     sx={{
+                        pl: 1,
                         fontSize: '0.875rem',
                         lineHeight: '1.125rem',
                         cursor: 'pointer',
-                        pl: 1,
                         color: 'black',
                         fontWeight: 'bold'
                     }}
                 >
                     {`Asset ID: ${AId}`}
                 </ListSubheader>
+                <IconButton
+                    onClick={handleIconClick}
+                >
+                    <Box
+                        component={"img"}
+                        src={ArrowIconImg}
+                        sx={{
+                            width: theme => theme.spacing(2.5),
+                            height: theme => theme.spacing(2.5)
+                        }}
+                    />
+                </IconButton>
+            </Box>
             }
         >
             {ATEventLog.map((event, index) => {
