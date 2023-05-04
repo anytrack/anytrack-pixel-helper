@@ -1,3 +1,4 @@
 export enum ATCustomEvent {
-    SendAnyTrackEventToContentScript='SendAnyTrackEventToContentScript'
+    SendAnyTrackEventToContentScript='SendAnyTrackEventToContentScript',
+    SendAnyTrackIdToContentScript='SendAnyTrackIdToContentScript'
 }

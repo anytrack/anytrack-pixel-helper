@@ -7,16 +7,18 @@ import SingleEventDetail from "./SingleEventDetail";
 import {grey} from '@mui/material/colors';
 
 type Props = {
-    event: ATEvent
+    event: ATEvent,
+    index: number
 }
-const SingleEvent: React.FC<Props> = ({event}) => {
+const SingleEvent: React.FC<Props> = ({event, index}) => {
     const [open, setOpen] = React.useState(false);
 
     return (
         <Box
             component={Paper}
             sx={{
-                backgroundColor: open ? grey[50] : ''
+                backgroundColor: open ? grey[50] : '',
+                mt: !index ? 2 : 0
             }}
             elevation={open ? 1 : 0}
         >

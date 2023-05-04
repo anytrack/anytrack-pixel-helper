@@ -6,10 +6,13 @@ import {ATMessageType} from "../../global/entity/ATMessage";
 import {ATEvent} from "../../global/entity/ATEvent";
 import {getActiveTab} from "../../global/utils";
 import EventLog from './modules/EventLog';
+import InjectionResult = chrome.scripting.InjectionResult;
 
 const Popup = () => {
     const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
-    const getATEventLogFromContentScript = () => window.ATEventLog
+    const [AId, setAId] = React.useState('')
+    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.AId])
+
     React.useEffect(() => {
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 if (request.type === ATMessageType.SendEventToPopup) {
@@ -28,11 +31,13 @@ const Popup = () => {
             try {
                 const result = await chrome.scripting.executeScript({
                     target: { tabId: activeTab.id },
-                    func: getATEventLogFromContentScript
-                })
+                    func: getATEventLogAndAIdFromContentScript
+                }) as InjectionResult<[ATEvent[], string]>[]
                 if (result.length) {
-                    result[0].result.reverse();
-                    setATEventLog(result[0].result)
+                    const temp = result[0].result
+                    temp[0].reverse()
+                    setATEventLog(temp[0])
+                    setAId(temp[1])
                 }
             } catch (_) {}
         })()
@@ -61,16 +66,9 @@ const Popup = () => {
                     mt: 2
                 }}
             />
-            <Button
-                onClick={() => setATEventLog([])}
-                sx={{
-                    color: 'red'
-                }}
-            >
-                Clear events
-            </Button>
             <EventLog
                 ATEventLog={ATEventLog}
+                AId={AId}
             />
         </div>
     );

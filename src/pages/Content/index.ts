@@ -3,7 +3,10 @@ import { ATEvent } from "../../global/entity/ATEvent";
 import {ATMessageType} from "../../global/entity/ATMessage";
 
 declare global {
-    interface Window { ATEventLog:ATEvent[] }
+    interface Window {
+        ATEventLog:ATEvent[],
+        AId: string
+    }
 }
 window.ATEventLog = []
 function main () {
@@ -23,6 +26,12 @@ function main () {
                 // Capture error when popup doesn't exist
                 console.log(_)
             }
+        }
+    })
+
+    document.addEventListener(ATCustomEvent.SendAnyTrackIdToContentScript, async function (e: any) {
+        if (e.detail !== undefined && e.detail.payload !== undefined) {
+            window.AId = e.detail.payload
         }
     })
 }
