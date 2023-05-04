@@ -16,10 +16,14 @@ const SingleEvent: React.FC<Props> = ({event}) => {
         <>
             <ListItemButton
                 onClick={() => setOpen(!open)}
+                disableGutters={true}
+                sx={{
+                    px: 1
+                }}
             >
                 <ListItemIcon
                     sx={{
-                        minWidth: 16
+                        minWidth: theme => theme.spacing(1.5)
                     }}
                 >
                     <FiberManualRecordIcon
@@ -45,7 +49,12 @@ const SingleEvent: React.FC<Props> = ({event}) => {
                     sx={{ fontSize: '1.2rem' }}
                 />}
             </ListItemButton>
-            <Collapse in={open} timeout="auto" unmountOnExit>
+            <Collapse
+                in={open} timeout="auto" unmountOnExit
+                sx={{
+                    px: 2.5
+                }}
+            >
                 <SingleEventDetail event={event}/>
             </Collapse>
         </>
