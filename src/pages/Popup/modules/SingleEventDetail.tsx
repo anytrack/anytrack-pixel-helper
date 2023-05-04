@@ -1,7 +1,7 @@
 import {Box, Typography} from '@mui/material';
 import React from 'react';
 import {ATEvent} from "../../../global/entity/ATEvent";
-import {displaydValue} from "../../../global/utils";
+import {displayedValue} from "../../../global/utils";
 
 type Props = {
     event: ATEvent
@@ -40,7 +40,7 @@ const SingleEventDetail: React.FC<Props> = ({event}) => {
                                 lineHeight: '18px'
                             }}
                         >
-                            {displaydValue(event[key as keyof ATEvent])}
+                            {displayedValue(event[key as keyof ATEvent])}
                         </Typography>
                     </Box>
                 ))

@@ -11,7 +11,8 @@ import InjectionResult = chrome.scripting.InjectionResult;
 const Popup = () => {
     const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
     const [AId, setAId] = React.useState('')
-    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.AId])
+    const [eventSnippets, setEventSnippet] = React.useState([])
+    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.AId, window.ATeventSnippets])
 
     React.useEffect(() => {
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {

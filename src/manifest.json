@@ -20,6 +20,7 @@
     {
       "matches": ["http://*/*", "https://*/*", "<all_urls>"],
       "js": ["contentScript.bundle.js"],
+      "run_at": "document_start",
       "css": ["content.styles.css"]
     },
     {

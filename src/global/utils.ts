@@ -5,4 +5,4 @@ export const getActiveTab = async (): Promise<Tab | undefined> => {
     return tab
 }
 
-export const displaydValue = (value: any) => typeof value === 'string' ? value : JSON.stringify(value)
+export const displayedValue = (value: any) => typeof value === 'string' ? value : JSON.stringify(value)
