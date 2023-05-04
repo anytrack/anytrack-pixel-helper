@@ -22,6 +22,14 @@ function main () {
             window.ATEventLog.push(e.detail.payload)
             try {
                 await chrome.runtime.sendMessage({
+                    type: ATMessageType.SendEventToServiceWorker,
+                    payload: window.ATEventLog.length
+                })
+            } catch (_) {
+                console.log(_)
+            }
+            try {
+                await chrome.runtime.sendMessage({
                     type: ATMessageType.SendEventToPopup,
                     payload: window.ATEventLog
                 })
