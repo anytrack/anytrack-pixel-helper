@@ -5,6 +5,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import SingleEventDetail from "./SingleEventDetail";
 import {grey} from '@mui/material/colors';
+import {formatDate} from "../../../global/utils";
 
 type Props = {
     event: ATEvent,
@@ -43,7 +44,7 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
                 </ListItemIcon>
                 <ListItemText
                     primary={event.eventName}
-                    secondary={event.eventTime}
+                    secondary={formatDate(event.eventTime)}
                     className={"text-truncate"}
                     sx={{
                         '& .MuiListItemText-primary': {

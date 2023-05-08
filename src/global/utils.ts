@@ -6,3 +6,5 @@ export const getActiveTab = async (): Promise<Tab | undefined> => {
 }
 
 export const displayedValue = (value: any) => typeof value === 'string' ? value : JSON.stringify(value)
+
+export const formatDate = (dateString: string) => new Date(dateString).toLocaleString().replace(/\//g,'-')
