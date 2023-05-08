@@ -1,7 +1,13 @@
 import {ATMessage, ATMessageType} from "../../global/entity/ATMessage";
+import {BadgeColor} from "../../global/config";
 
 chrome.action.setBadgeBackgroundColor({
-    color: 'green'
+    color: BadgeColor.background
+}).catch(console.log)
+
+// @ts-ignore
+chrome.action.setBadgeTextColor({
+    color: BadgeColor.text
 }).catch(console.log)
 chrome.runtime.onMessage.addListener(function(message: ATMessage, sender, sendResponse) {
     switch (message.type) {
