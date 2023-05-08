@@ -1,5 +1,6 @@
 {
   "manifest_version": 3,
+  "version": "0.0.1",
   "name": "Anytrack Pixel Helper",
   "description": "Detect Anytrack snippets and custom event snippets.",
   "background": { "service_worker": "background.bundle.js" },
