@@ -7,7 +7,7 @@ type Props = {
     event: ATEvent
 }
 
-const displayedAttributes = ['target', 'eventId', 'clickId', 'clientId', 'eventName', 'eventValue', 'currency',
+const displayedAttributes = ['target', 'eventId', 'clickId', 'clientId', 'eventValue', 'currency',
     'trackingGroup', 'link', 'brandName', 'transactionId', 'shippingPrice', 'taxPrice', 'items']
 const SingleEventDetail: React.FC<Props> = ({event}) => {
     return (
