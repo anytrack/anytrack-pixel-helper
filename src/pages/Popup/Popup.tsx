@@ -1,7 +1,7 @@
 import React from 'react';
 // @ts-ignore
-import logo from '../../assets/img/logo.svg';
-import {Avatar, Box, Button, Divider, Typography} from "@mui/material";
+import logo from '../../assets/img/logo.png';
+import {Avatar, Box, Divider, Typography} from "@mui/material";
 import {ATMessageType} from "../../global/entity/ATMessage";
 import {ATEvent} from "../../global/entity/ATEvent";
 import {getActiveTab} from "../../global/utils";
@@ -52,7 +52,7 @@ const Popup = () => {
                     zIndex: 100,
                     top: 0,
                     backgroundColor: 'white',
-                    pt: 2.5
+                    pt: 1.5
                 }}
             >
                 <Box
@@ -65,7 +65,9 @@ const Popup = () => {
                     <Typography
                         variant={"body1"}
                         sx={{
-                            fontWeight: 'bold'
+                            fontWeight: 'bold',
+                            fontSize: 21,
+                            lineHeight: '27px'
                         }}
                     >
                         AnyTrack Pixel Helper
@@ -73,7 +75,7 @@ const Popup = () => {
                 </Box>
                 <Divider
                     sx={{
-                        mt: 2
+                        mt: 1.5
                     }}
                 />
             </Box>
