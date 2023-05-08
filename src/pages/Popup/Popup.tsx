@@ -1,7 +1,7 @@
 import React from 'react';
 // @ts-ignore
-import logo from '../../assets/img/logo.svg';
-import {Avatar, Box, Button, Divider, Typography} from "@mui/material";
+import logo from '../../assets/img/logo-square.png';
+import {Avatar, Box, Divider, Typography} from "@mui/material";
 import {ATMessageType} from "../../global/entity/ATMessage";
 import {ATEvent} from "../../global/entity/ATEvent";
 import {getActiveTab} from "../../global/utils";
@@ -65,7 +65,7 @@ const Popup = () => {
                     <Typography
                         variant={"body1"}
                         sx={{
-                            fontWeight: 'bold'
+                            fontWeight: 'bold',
                         }}
                     >
                         AnyTrack Pixel Helper
