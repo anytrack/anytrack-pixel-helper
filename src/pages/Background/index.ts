@@ -1,5 +1,5 @@
 import {ATMessage, ATMessageType} from "../../global/entity/ATMessage";
-import {BadgeColor} from "../../global/config";
+import {BadgeColor, BadgeMaxEvent} from "../../global/config";
 
 chrome.action.setBadgeBackgroundColor({
     color: BadgeColor.background
@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener(function(message: ATMessage, sender, sendRe
             const noEvents = message.payload;
             (async () => {
                 chrome.action.setBadgeText({
-                    text: noEvents > 10000 ? '10000+' : noEvents.toString(),
+                    text: noEvents > BadgeMaxEvent ? ';)' : noEvents.toString(),
                     tabId: sender.tab?.id
                 }).catch(console.log)
                 sendResponse({})
