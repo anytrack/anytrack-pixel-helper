@@ -12,7 +12,8 @@
     "128": "src/assets/img/logo.png"
   },
   "permissions": [
-    "scripting"
+    "scripting",
+    "storage"
   ],
   "host_permissions": [
     "<all_urls>"

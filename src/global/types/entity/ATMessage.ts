@@ -1,7 +1,8 @@
 export enum ATMessageType {
     SendEventToPopup='SendEventToPopup',
     SendEventToServiceWorker='SendEventToServiceWorker',
-    SendResponse='SendResponse'
+    SendResponse='SendResponse',
+    SendGA4Event='SendGA4Event'
 }
 export interface ATMessage {
     payload?: any,

@@ -2,11 +2,12 @@ import React from 'react';
 // @ts-ignore
 import logo from '../../assets/img/logo-square.png';
 import {Avatar, Box, Divider, Typography} from "@mui/material";
-import {ATMessageType} from "../../global/types/entity/ATMessage";
+import {ATMessage, ATMessageType} from "../../global/types/entity/ATMessage";
 import {ATEvent} from "../../global/types/entity/ATEvent";
 import {getActiveTab} from "../../global/utils";
 import EventLog from './modules/EventLog';
 import InjectionResult = chrome.scripting.InjectionResult;
+import {Ga4Payload} from "../../global/types/entity";
 
 const Popup = () => {
     const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
@@ -25,6 +26,7 @@ const Popup = () => {
             }
         );
 
+        // Todo: add comment
         (async () => {
             const activeTab = await getActiveTab()
             if (!activeTab || !activeTab.id)
@@ -41,7 +43,17 @@ const Popup = () => {
                     setAId(temp[1])
                 }
             } catch (_) {}
-        })()
+        })();
+
+        // Send GA4 page_view to service worker page
+        (async () => {
+            await chrome.runtime.sendMessage({
+                type: ATMessageType.SendGA4Event,
+                payload: {
+                    name: 'page_view'
+                }
+            } as ATMessage)
+        })();
     },[])
 
     return (
