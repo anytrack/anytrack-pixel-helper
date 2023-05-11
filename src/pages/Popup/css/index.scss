@@ -4,6 +4,10 @@ body {
   width: 400px;
 }
 
+#app-container {
+  max-height: 600px;
+}
+
 .text-truncate {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -19,4 +23,9 @@ body {
 
 .logo {
   margin-right: 10px;
+}
+
+.content-text {
+  font-size: 14px !important;
+  line-height: 18px !important;
 }

@@ -1,16 +1,22 @@
 import React from 'react';
-// @ts-ignore
-import logo from '../../../assets/img/logo-square.png';
 import Header from "../components/Header";
+import {Box} from "@mui/material";
+import {PopupPage} from "../../../global/types/entity";
 
-const HeaderLayout = (props: any) => {
+const HeaderLayout: React.FC<any> = (props) => {
     return (
         <>
             <Header
                 {...props}
             />
-
-            {props.children}
+            <Box
+                sx={{
+                    maxHeight: props.page === PopupPage.Homepage ? '500px' : '470px',
+                    overflowY: 'auto'
+                }}
+            >
+                {props.children}
+            </Box>
         </>
     );
 };

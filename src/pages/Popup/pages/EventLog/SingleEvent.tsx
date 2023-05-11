@@ -48,12 +48,12 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
                     className={"text-truncate"}
                     sx={{
                         '& .MuiListItemText-primary': {
-                            fontSize: '0.875rem',
-                            lineHeight: 1.125
+                            fontSize: 14,
+                            lineHeight: '18px'
                         },
                         '& .MuiListItemText-secondary': {
-                            fontSize: '0.875rem',
-                            lineHeight: 1.125
+                            fontSize: 13,
+                            lineHeight: '18px'
                         }
                     }}
                 />

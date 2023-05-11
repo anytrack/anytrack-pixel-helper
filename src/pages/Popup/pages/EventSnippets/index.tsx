@@ -1,7 +1,7 @@
 import React from 'react';
 import {Stack} from "@mui/material";
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {githubGist} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import {githubGist, atelierCaveLight, atelierDuneLight, atelierEstuaryLight, atelierForestLight, solarizedLight} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SubHeader from "../../components/SubHeader";
 
 type Props = {
@@ -10,7 +10,12 @@ type Props = {
 
 const CodeBlock = (props: any) => {
     return (
-        <SyntaxHighlighter language="javascript" style={githubGist}>
+        <SyntaxHighlighter
+            language="javascript"
+            style={atelierDuneLight}
+            wrapLongLines={true}
+            className={"content-text"}
+        >
             {props.eventSnippet}
         </SyntaxHighlighter>
     );
@@ -20,7 +25,11 @@ const CodeBlock = (props: any) => {
 const EventSnippets: React.FC<Props> = ({ eventSnippets}) => {
     return (
         <>
-            <SubHeader>
+            <SubHeader
+                sx={{
+                    ml: 1.5
+                }}
+            >
                 {`Snippet on ${window.tabHostName}`}
             </SubHeader>
             <Stack

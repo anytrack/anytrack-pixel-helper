@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Typography, styled } from '@mui/material';
 
 const SubHeader = styled(Typography)(({ theme }) => ({
-    paddingLeft: theme.spacing(1),
     fontSize: '0.875rem',
     lineHeight: '1.125rem',
     color: 'black',

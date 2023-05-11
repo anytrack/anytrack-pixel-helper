@@ -60,12 +60,13 @@ const Header: React.FC<Props> = (props) => {
                     component="button"
                     variant="body2"
                     onClick={() => setPage(PopupPage.EventSnippets)}
+                    className={"content-text"}
                     sx={{
                         pr: 1.5,
                         pb: 0.75
                     }}
                 >
-                    {!eventSnippets.length ? 'No snippets' : `Snippets found ${eventSnippets.length}`}
+                    {!eventSnippets.length ? 'No snippets' : `Snippets found: ${eventSnippets.length}`}
                 </Link>
             </Box>
             <Box

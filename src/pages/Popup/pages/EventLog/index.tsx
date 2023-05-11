@@ -26,7 +26,11 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                     justifyContent: 'space-between'
                 }}
             >
-                <SubHeader>
+                <SubHeader
+                    sx={{
+                        ml: 1
+                    }}
+                >
                     {`Asset ID: ${AId}`}
                 </SubHeader>
                 <IconButton
