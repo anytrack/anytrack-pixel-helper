@@ -1,11 +1,11 @@
 import {Box, Collapse, ListItemButton, ListItemIcon, ListItemText, Paper} from '@mui/material';
 import React from 'react';
-import {ATEvent} from "../../../global/types/entity/ATEvent";
+import {ATEvent} from "../../../../global/types/entity/ATEvent";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import SingleEventDetail from "./SingleEventDetail";
 import {grey} from '@mui/material/colors';
-import {formatDate} from "../../../global/utils";
+import {formatDate} from "../../../../global/utils";
 
 type Props = {
     event: ATEvent,

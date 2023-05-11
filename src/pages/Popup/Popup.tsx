@@ -1,15 +1,16 @@
 import React from 'react';
 // @ts-ignore
 import logo from '../../assets/img/logo-square.png';
-import {Avatar, Box, Divider, Typography} from "@mui/material";
 import {ATMessage, ATMessageType} from "../../global/types/entity/ATMessage";
 import {ATEvent} from "../../global/types/entity/ATEvent";
 import {getActiveTab} from "../../global/utils";
-import EventLog from './modules/EventLog';
+import EventLog from './pages/EventLog';
+import HeaderLayout from "./layouts/HeaderLayout";
+import {PopupPage} from "../../global/types/entity";
 import InjectionResult = chrome.scripting.InjectionResult;
-import {Ga4Payload} from "../../global/types/entity";
 
 const Popup = () => {
+    const [page, setPage] = React.useState<PopupPage>(PopupPage.Homepage)
     const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
     const [AId, setAId] = React.useState('')
     const [eventSnippets, setEventSnippet] = React.useState([])
@@ -57,43 +58,12 @@ const Popup = () => {
     },[])
 
     return (
-        <>
-            <Box
-                sx={{
-                    position: 'sticky',
-                    zIndex: 100,
-                    top: 0,
-                    backgroundColor: 'white',
-                    pt: 2.5
-                }}
-            >
-                <Box
-                    className={"header"}
-                >
-                    <Avatar
-                        src={logo}
-                        className={"logo"}
-                    />
-                    <Typography
-                        variant={"body1"}
-                        sx={{
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        AnyTrack Pixel Helper
-                    </Typography>
-                </Box>
-                <Divider
-                    sx={{
-                        mt: 2
-                    }}
-                />
-            </Box>
+        <HeaderLayout>
             <EventLog
                 ATEventLog={ATEventLog}
                 AId={AId}
             />
-        </>
+        </HeaderLayout>
     );
 };
 

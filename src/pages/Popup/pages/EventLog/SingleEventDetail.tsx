@@ -1,9 +1,9 @@
 import {Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography} from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import React from 'react';
-import {ATEvent} from "../../../global/types/entity/ATEvent";
-import {displayedValue} from "../../../global/utils";
-import SingleEventValueText from "../components/SingleEventValueText";
+import {ATEvent} from "../../../../global/types/entity/ATEvent";
+import {displayedValue} from "../../../../global/utils";
+import SingleEventValueText from "../../components/SingleEventValueText";
 
 type Props = {
     event: ATEvent
