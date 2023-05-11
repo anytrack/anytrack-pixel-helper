@@ -8,12 +8,18 @@ import {PopupPage} from "../../global/types/entity";
 import PageRouter from "./pages";
 import InjectionResult = chrome.scripting.InjectionResult;
 
+declare global {
+    interface Window {
+        tabHostName: string
+    }
+}
+
 const Popup = () => {
     const [page, setPage] = React.useState<PopupPage>(PopupPage.Homepage)
     const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
     const [AId, setAId] = React.useState('')
     const [eventSnippets, setEventSnippet] = React.useState<string[]>([])
-    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.AId, window.ATeventSnippets])
+    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.AId, window.ATeventSnippets, window.location.hostname])
 
     React.useEffect(() => {
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -35,13 +41,14 @@ const Popup = () => {
                 const result = await chrome.scripting.executeScript({
                     target: { tabId: activeTab.id },
                     func: getATEventLogAndAIdFromContentScript
-                }) as InjectionResult<[ATEvent[], string, string[]]>[]
+                }) as InjectionResult<[ATEvent[], string, string[], string]>[]
                 if (result.length) {
                     const temp = result[0].result
                     temp[0].reverse()
                     setATEventLog(temp[0])
                     setAId(temp[1])
                     setEventSnippet(temp[2])
+                    window.tabHostName = temp[3]
                 }
             } catch (_) {}
         })();

@@ -4,6 +4,7 @@ import {ATEvent} from '../../../../global/types/entity/ATEvent';
 import SingleEvent from './SingleEvent';
 // @ts-ignore
 import ArrowIconImg from '../../../../assets/img/ArrowIcon.png'
+import SubHeader from "../../components/SubHeader";
 
 type Props = {
     ATEventLog: ATEvent[],
@@ -25,18 +26,9 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                     justifyContent: 'space-between'
                 }}
             >
-                <ListSubheader
-                    sx={{
-                        pl: 1,
-                        fontSize: '0.875rem',
-                        lineHeight: '1.125rem',
-                        cursor: 'pointer',
-                        color: 'black',
-                        fontWeight: 'bold'
-                    }}
-                >
+                <SubHeader>
                     {`Asset ID: ${AId}`}
-                </ListSubheader>
+                </SubHeader>
                 <IconButton
                     onClick={handleIconClick}
                 >
