@@ -5,3 +5,6 @@ declare global {
         tabHostName: string
     }
 }
+
+declare module '*.png';
+declare module '*.svg';

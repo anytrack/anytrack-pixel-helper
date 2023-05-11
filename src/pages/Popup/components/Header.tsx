@@ -1,17 +1,46 @@
 import React from 'react';
-// @ts-ignore
 import logo from '../../../assets/img/logo-square.png';
-import {Avatar, Box, Divider, Link, Typography} from "@mui/material";
+import {Avatar, Box, Divider, IconButton, Link, Typography} from "@mui/material";
 import {PopupPage} from "../../../global/types/entity";
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 
 type Props = {
+    page: PopupPage,
     setPage: React.Dispatch<PopupPage>,
     eventSnippets: string[]
 }
 
-const Header: React.FC<Props> = (props) => {
-    const { setPage, eventSnippets } = props
+const GoBackNavigation: React.FC<Props> = (props) => {
+    const handleClick = () => props.setPage(PopupPage.Homepage)
+    return (
+        <Box
+            onClick={handleClick}
+            sx={{
+                display: 'flex',
+                cursor: 'pointer',
+                my: 1.5,
+                ml: 1
+            }}
+        >
+            <KeyboardDoubleArrowLeftIcon
+                color={"primary"}
+            />
+            <Link
+                component="button"
+                variant="body2"
+                sx={{
+                    ml: 0.5
+                }}
+            >
+                Go back
+            </Link>
+        </Box>
+    )
+}
 
+const Header: React.FC<Props> = (props) => {
+    const { page, setPage, eventSnippets } = props
+    const shouldShowGoBackNavigation = page !== PopupPage.Homepage
     return (
         <Box
             sx={{
@@ -24,7 +53,7 @@ const Header: React.FC<Props> = (props) => {
         >
             <Box sx={{
                 position: 'absolute',
-                bottom: 0,
+                bottom: theme => shouldShowGoBackNavigation ? theme.spacing(4.5) : 0,
                 right: 0
             }}>
                 <Link
@@ -60,6 +89,7 @@ const Header: React.FC<Props> = (props) => {
                     mt: 2
                 }}
             />
+            {shouldShowGoBackNavigation && <GoBackNavigation {...props} />}
         </Box>
     );
 };

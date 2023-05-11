@@ -9,6 +9,7 @@ const HeaderLayout = (props: any) => {
             <Header
                 {...props}
             />
+
             {props.children}
         </>
     );
