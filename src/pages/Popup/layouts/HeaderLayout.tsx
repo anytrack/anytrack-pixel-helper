@@ -6,7 +6,9 @@ import Header from "../components/Header";
 const HeaderLayout = (props: any) => {
     return (
         <>
-            <Header/>
+            <Header
+                {...props}
+            />
             {props.children}
         </>
     );

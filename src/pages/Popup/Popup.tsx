@@ -4,16 +4,15 @@ import logo from '../../assets/img/logo-square.png';
 import {ATMessage, ATMessageType} from "../../global/types/entity/ATMessage";
 import {ATEvent} from "../../global/types/entity/ATEvent";
 import {getActiveTab} from "../../global/utils";
-import EventLog from './pages/EventLog';
-import HeaderLayout from "./layouts/HeaderLayout";
 import {PopupPage} from "../../global/types/entity";
+import PageRouter from "./pages";
 import InjectionResult = chrome.scripting.InjectionResult;
 
 const Popup = () => {
     const [page, setPage] = React.useState<PopupPage>(PopupPage.Homepage)
     const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
     const [AId, setAId] = React.useState('')
-    const [eventSnippets, setEventSnippet] = React.useState([])
+    const [eventSnippets, setEventSnippet] = React.useState<string[]>([])
     const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.AId, window.ATeventSnippets])
 
     React.useEffect(() => {
@@ -36,12 +35,13 @@ const Popup = () => {
                 const result = await chrome.scripting.executeScript({
                     target: { tabId: activeTab.id },
                     func: getATEventLogAndAIdFromContentScript
-                }) as InjectionResult<[ATEvent[], string]>[]
+                }) as InjectionResult<[ATEvent[], string, string[]]>[]
                 if (result.length) {
                     const temp = result[0].result
                     temp[0].reverse()
                     setATEventLog(temp[0])
                     setAId(temp[1])
+                    setEventSnippet(temp[2])
                 }
             } catch (_) {}
         })();
@@ -58,12 +58,13 @@ const Popup = () => {
     },[])
 
     return (
-        <HeaderLayout>
-            <EventLog
-                ATEventLog={ATEventLog}
-                AId={AId}
-            />
-        </HeaderLayout>
+        <PageRouter
+            page={page}
+            setPage={setPage}
+            ATEventLog={ATEventLog}
+            eventSnippets={eventSnippets}
+            AId={AId}
+        />
     );
 };
 

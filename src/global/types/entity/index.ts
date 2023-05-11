@@ -10,6 +10,6 @@ export enum StorageKey {
 
 export enum PopupPage {
     Homepage='HomePage',
-    Snippet='Snippet',
+    EventSnippets='EventSnippets',
     Pixel='Pixel'
 }
