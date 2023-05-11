@@ -1,9 +1,8 @@
 import React from 'react';
-import {Box, IconButton, List, ListSubheader} from "@mui/material";
+import {Box, Button, IconButton, Link, List, Tooltip} from "@mui/material";
 import {ATEvent} from '../../../../global/types/entity/ATEvent';
 import SingleEvent from './SingleEvent';
-// @ts-ignore
-import ArrowIconImg from '../../../../assets/img/ArrowIcon.png'
+import anyTrackLogo from '../../../../assets/img/logo-square.png'
 import SubHeader from "../../components/SubHeader";
 
 type Props = {
@@ -33,18 +32,37 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                 >
                     {`Asset ID: ${AId}`}
                 </SubHeader>
-                <IconButton
-                    onClick={handleIconClick}
+                <Tooltip
+                    title={"View on AnyTrack"}
+                    placement={"left"}
                 >
                     <Box
-                        component={"img"}
-                        src={ArrowIconImg}
+                        onClick={handleIconClick}
                         sx={{
-                            width: theme => theme.spacing(2.5),
-                            height: theme => theme.spacing(2.5)
+                            display: 'flex'
                         }}
-                    />
-                </IconButton>
+                    >
+                        <Link
+                            component="button"
+                            variant={"body2"}
+                            className={"content-text"}
+                            underline={"none"}
+                        >
+                            Open in
+                        </Link>
+                        <IconButton
+                        >
+                            <Box
+                                component={"img"}
+                                src={anyTrackLogo}
+                                sx={{
+                                    width: theme => theme.spacing(2.5),
+                                    height: theme => theme.spacing(2.5)
+                                }}
+                            />
+                        </IconButton>
+                    </Box>
+                </Tooltip>
             </Box>
             }
         >
