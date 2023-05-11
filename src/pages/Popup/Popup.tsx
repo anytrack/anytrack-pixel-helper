@@ -2,8 +2,8 @@ import React from 'react';
 // @ts-ignore
 import logo from '../../assets/img/logo-square.png';
 import {Avatar, Box, Divider, Typography} from "@mui/material";
-import {ATMessageType} from "../../global/entity/ATMessage";
-import {ATEvent} from "../../global/entity/ATEvent";
+import {ATMessageType} from "../../global/types/entity/ATMessage";
+import {ATEvent} from "../../global/types/entity/ATEvent";
 import {getActiveTab} from "../../global/utils";
 import EventLog from './modules/EventLog';
 import InjectionResult = chrome.scripting.InjectionResult;

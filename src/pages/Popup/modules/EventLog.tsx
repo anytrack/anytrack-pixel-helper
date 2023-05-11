@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, IconButton, List, ListSubheader} from "@mui/material";
-import {ATEvent} from '../../../global/entity/ATEvent';
+import {ATEvent} from '../../../global/types/entity/ATEvent';
 import SingleEvent from './SingleEvent';
 // @ts-ignore
 import ArrowIconImg from '../../../assets/img/ArrowIcon.png'

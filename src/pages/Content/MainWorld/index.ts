@@ -1,5 +1,5 @@
-import {ATCustomEvent as ATCustomEvent} from "../../../global/entity/ATCustomEvent"
-import {ATEvent, StandardEventName} from "../../../global/entity/ATEvent";
+import {ATCustomEvent as ATCustomEvent} from "../../../global/types/entity/ATCustomEvent"
+import {ATEvent, StandardEventName} from "../../../global/types/entity/ATEvent";
 
 const main = () => {
 

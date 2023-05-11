@@ -1,6 +1,6 @@
-import {ATCustomEvent} from "../../../global/entity/ATCustomEvent";
-import { ATEvent } from "../../../global/entity/ATEvent";
-import {ATMessageType} from "../../../global/entity/ATMessage";
+import {ATCustomEvent} from "../../../global/types/entity/ATCustomEvent";
+import { ATEvent } from "../../../global/types/entity/ATEvent";
+import {ATMessageType} from "../../../global/types/entity/ATMessage";
 import {getEventSnippets} from "./modules/EventSnippets";
 
 declare global {

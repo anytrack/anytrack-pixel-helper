@@ -1,4 +1,4 @@
-import {ATMessage, ATMessageType} from "../../global/entity/ATMessage";
+import {ATMessage, ATMessageType} from "../../global/types/entity/ATMessage";
 import {BadgeColor, BadgeMaxEvent} from "../../global/config";
 
 chrome.action.setBadgeBackgroundColor({
