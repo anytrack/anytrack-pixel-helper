@@ -1,5 +1,5 @@
 export const GA4 = {
-    measurementId: 'G-F0CB5J8PT7',
+    measurementId: 'G-F0CB5J8PT7-to-be-remove',
     secretKey: 'lQhySTSQSzqm-OGkCq4H3Q',
     clientIdLen: 50,
 }

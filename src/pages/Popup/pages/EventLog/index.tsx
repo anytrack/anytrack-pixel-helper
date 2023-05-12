@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, IconButton, Link, List, Tooltip} from "@mui/material";
+import {Box, IconButton, Link, List, Tooltip} from "@mui/material";
 import {ATEvent} from '../../../../global/types/entity/ATEvent';
 import SingleEvent from './SingleEvent';
 import anyTrackLogo from '../../../../assets/img/logo-square.png'
