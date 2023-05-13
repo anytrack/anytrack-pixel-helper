@@ -29,6 +29,7 @@ const GoBackNavigation: React.FC<Props> = (props) => {
             <Link
                 component="button"
                 variant="body2"
+                underline={"none"}
                 sx={{
                     ml: 0.5
                 }}
@@ -64,7 +65,6 @@ const Header: React.FC<Props> = (props) => {
                     className={"content-text"}
                     sx={{
                         pr: 1.5,
-                        pb: 0.75,
                         display: 'block'
                     }}
                 >
