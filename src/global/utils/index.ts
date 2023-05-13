@@ -20,3 +20,12 @@ export const generateHash = (length: number): string => {
     }
     return result;
 }
+
+export const getHostname = (url: string): string | null => {
+    try {
+        const temp = new URL(url)
+        return temp.hostname
+    } catch (_) {
+        return null;
+    }
+}

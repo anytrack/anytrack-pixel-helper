@@ -3,6 +3,7 @@ import logo from '../../../assets/img/logo-square.png';
 import {Avatar, Box, Divider, IconButton, Link, Typography} from "@mui/material";
 import {PopupPage} from "../../../global/types/entity";
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import {getPixelScripts} from "../../../global/utils/pixelNetwork";
 
 type Props = {
     page: PopupPage,
@@ -54,8 +55,21 @@ const Header: React.FC<Props> = (props) => {
             <Box sx={{
                 position: 'absolute',
                 bottom: theme => shouldShowGoBackNavigation ? theme.spacing(4.5) : 0,
-                right: 0
+                right: 0,
             }}>
+                <Link
+                    component="button"
+                    variant="body2"
+                    onClick={() => setPage(PopupPage.Pixel)}
+                    className={"content-text"}
+                    sx={{
+                        pr: 1.5,
+                        pb: 0.75,
+                        display: 'block'
+                    }}
+                >
+                    {`Pixel Installs: ${getPixelScripts(window).length}`}
+                </Link>
                 <Link
                     component="button"
                     variant="body2"

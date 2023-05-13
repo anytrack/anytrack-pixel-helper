@@ -7,10 +7,12 @@ import {getActiveTab} from "../../global/utils";
 import {PopupPage} from "../../global/types/entity";
 import PageRouter from "./pages";
 import InjectionResult = chrome.scripting.InjectionResult;
+import {PixelNetworkInfo} from "../../global/types/entity/PixelNetwork";
 
 declare global {
     interface Window {
-        tabHostName: string
+        tabHostName: string,
+        pixelNetworkInfo: PixelNetworkInfo
     }
 }
 
@@ -19,7 +21,7 @@ const Popup = () => {
     const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
     const [AId, setAId] = React.useState('')
     const [eventSnippets, setEventSnippet] = React.useState<string[]>([])
-    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.AId, window.ATeventSnippets, window.location.hostname])
+    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.pixelNetworkInfo, window.ATeventSnippets, window.location.hostname])
 
     React.useEffect(() => {
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -41,12 +43,15 @@ const Popup = () => {
                 const result = await chrome.scripting.executeScript({
                     target: { tabId: activeTab.id },
                     func: getATEventLogAndAIdFromContentScript
-                }) as InjectionResult<[ATEvent[], string, string[], string]>[]
+                }) as InjectionResult<[ATEvent[], PixelNetworkInfo & {Aid: string}, string[], string]>[]
                 if (result.length) {
                     const temp = result[0].result
                     temp[0].reverse()
                     setATEventLog(temp[0])
-                    setAId(temp[1])
+                    const {Aid, ...rest} = temp[1]
+                    setAId(Aid)
+                    window.pixelNetworkInfo = rest
+                    console.log("pixel", window.pixelNetworkInfo)
                     setEventSnippet(temp[2])
                     window.tabHostName = temp[3]
                 }

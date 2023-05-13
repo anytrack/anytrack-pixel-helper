@@ -1,17 +1,27 @@
 import {ATCustomEvent} from "../../../global/types/entity/ATCustomEvent";
-import { ATEvent } from "../../../global/types/entity/ATEvent";
 import {ATMessageType} from "../../../global/types/entity/ATMessage";
-import {getEventSnippets} from "./modules/EventSnippets";
+import {getEventSnippets} from "./modules/eventSnippet";
+import {PixelNetworkInfo} from "../../../global/types/entity/PixelNetwork";
+import {getScriptInfo} from "./modules/pixelNetwork";
+
 
 declare global {
     interface Window {
-        ATEventLog:ATEvent[],
-        AId: string,
-        ATeventSnippets: string[]
+        ATEventLog: any[],
+        ATeventSnippets: string[],
+        pixelNetworkInfo: PixelNetworkInfo,
+        google_tag_manager: any
     }
 }
+
 window.ATEventLog = []
 window.ATeventSnippets = []
+window.pixelNetworkInfo = {
+    scriptInfo: [],
+    gtm: {},
+    ATConfigPixel: {},
+}
+
 function main () {
     // This is to avoid error when extension updates a new version
     if (!chrome.runtime)
@@ -40,15 +50,15 @@ function main () {
         }
     })
 
-    document.addEventListener(ATCustomEvent.SendAnyTrackIdToContentScript, async function (e: any) {
+    document.addEventListener(ATCustomEvent.SendPixelNetworkToContentScript, async function (e: any) {
         if (e.detail !== undefined && e.detail.payload !== undefined) {
-            window.AId = e.detail.payload
+            window.pixelNetworkInfo = {...window.pixelNetworkInfo, ...e.detail.payload}
         }
     })
 
-    document.addEventListener("DOMContentLoaded", function() {
+    window.addEventListener('load', function() {
         window.ATeventSnippets = getEventSnippets()
-        console.log(window.ATeventSnippets)
+        window.pixelNetworkInfo.scriptInfo = getScriptInfo()
     })
 }
 

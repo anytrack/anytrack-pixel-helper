@@ -1,4 +1,4 @@
-import {Box, Collapse, ListItemButton, ListItemIcon, ListItemText, Paper} from '@mui/material';
+import {Box, Collapse, ListItemButton, ListItemIcon, Paper} from '@mui/material';
 import React from 'react';
 import {ATEvent} from "../../../../global/types/entity/ATEvent";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
@@ -6,6 +6,7 @@ import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import SingleEventDetail from "./SingleEventDetail";
 import {grey} from '@mui/material/colors';
 import {formatDate} from "../../../../global/utils";
+import ListItemText from "../../components/ListItemText";
 
 type Props = {
     event: ATEvent,
@@ -46,16 +47,6 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
                     primary={event.eventName}
                     secondary={formatDate(event.eventTime)}
                     className={"text-truncate"}
-                    sx={{
-                        '& .MuiListItemText-primary': {
-                            fontSize: 14,
-                            lineHeight: '18px'
-                        },
-                        '& .MuiListItemText-secondary': {
-                            fontSize: 13,
-                            lineHeight: '18px'
-                        }
-                    }}
                 />
                 {open ? <ExpandLess
                     sx={{ fontSize: '1.2rem' }}
