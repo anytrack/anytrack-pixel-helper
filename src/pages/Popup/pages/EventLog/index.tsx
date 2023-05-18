@@ -7,7 +7,7 @@ import SubHeader from "../../components/SubHeader";
 
 type Props = {
     ATEventLog: ATEvent[],
-    AId: string
+    AId: string | undefined
 }
 const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
     const handleIconClick = () => {

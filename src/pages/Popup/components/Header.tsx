@@ -4,11 +4,14 @@ import {Avatar, Box, Divider, IconButton, Link, Typography} from "@mui/material"
 import {PopupPage} from "../../../global/types/entity";
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import {getPixelScripts} from "../../../global/utils/pixelNetwork";
+import {anyTrackNotInstalled} from "../../../global/utils";
 
 type Props = {
     page: PopupPage,
     setPage: React.Dispatch<PopupPage>,
-    eventSnippets: string[]
+    AId: string | undefined,
+    eventSnippets: string[],
+    activeTabLoaded: boolean,
 }
 
 const GoBackNavigation: React.FC<Props> = (props) => {
@@ -41,8 +44,11 @@ const GoBackNavigation: React.FC<Props> = (props) => {
 }
 
 const Header: React.FC<Props> = (props) => {
-    const { page, setPage, eventSnippets } = props
+    const { page, setPage, eventSnippets, activeTabLoaded, AId } = props
     const shouldShowGoBackNavigation = page !== PopupPage.Homepage
+    const isAnyTrackInstalled =  AId !== undefined
+
+
     return (
         <Box
             sx={{
@@ -53,7 +59,7 @@ const Header: React.FC<Props> = (props) => {
                 pt: 2.5
             }}
         >
-            <Box sx={{
+            {isAnyTrackInstalled && <Box sx={{
                 position: 'absolute',
                 bottom: theme => shouldShowGoBackNavigation ? theme.spacing(4.5) : 0,
                 right: 0,
@@ -82,7 +88,7 @@ const Header: React.FC<Props> = (props) => {
                 >
                     {!eventSnippets.length ? 'No snippets' : `Snippets found: ${eventSnippets.length}`}
                 </Link>
-            </Box>
+            </Box>}
             <Box
                 className={"header"}
             >

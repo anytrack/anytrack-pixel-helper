@@ -11,28 +11,39 @@ import {PixelNetworkInfo} from "../../global/types/entity/PixelNetwork";
 
 declare global {
     interface Window {
+        pixelNetworkInfo: PixelNetworkInfo,
+        // Whether the active tap of this popup window has been loaded (window.onload event fires)
         tabHostName: string,
-        pixelNetworkInfo: PixelNetworkInfo
     }
 }
 
 const Popup = () => {
     const [page, setPage] = React.useState<PopupPage>(PopupPage.Homepage)
     const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
-    const [AId, setAId] = React.useState('')
+    const [AId, setAId] = React.useState<string | undefined>(undefined)
     const [eventSnippets, setEventSnippet] = React.useState<string[]>([])
-    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.pixelNetworkInfo, window.ATeventSnippets, window.location.hostname])
+    const [activeTabLoaded, setActiveTabLoaded] = React.useState<boolean>(false)
+
+    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.pixelNetworkInfo, window.ATeventSnippets, window.location.hostname, window.loaded])
 
     React.useEffect(() => {
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-                if (request.type === ATMessageType.SendEventToPopup) {
+            switch (request.type) {
+                case ATMessageType.SendEventToPopup:
                     setATEventLog(request.payload)
                     sendResponse({
                         type: ATMessageType.SendResponse
-                    });
-                }
+                    })
+                    break;
+                case ATMessageType.SendActiveTabLoadedStateToPopup:
+                    setActiveTabLoaded(true)
+                    sendResponse({
+                        type: ATMessageType.SendResponse
+                    })
+                    break;
+                default:
             }
-        );
+        });
 
         // Todo: add comment
         (async () => {
@@ -43,17 +54,18 @@ const Popup = () => {
                 const result = await chrome.scripting.executeScript({
                     target: { tabId: activeTab.id },
                     func: getATEventLogAndAIdFromContentScript
-                }) as InjectionResult<[ATEvent[], PixelNetworkInfo & {Aid: string}, string[], string]>[]
+                }) as InjectionResult<[ATEvent[], PixelNetworkInfo & {Aid: string}, string[], string, boolean | undefined]>[]
                 if (result.length) {
+                    console.log("result", result)
                     const temp = result[0].result
                     temp[0].reverse()
                     setATEventLog(temp[0])
                     const {Aid, ...rest} = temp[1]
                     setAId(Aid)
                     window.pixelNetworkInfo = rest
-                    console.log("pixel", window.pixelNetworkInfo)
                     setEventSnippet(temp[2])
                     window.tabHostName = temp[3]
+                    setActiveTabLoaded(temp[4] || false)
                 }
             } catch (_) {}
         })();
@@ -75,6 +87,7 @@ const Popup = () => {
             setPage={setPage}
             ATEventLog={ATEventLog}
             eventSnippets={eventSnippets}
+            activeTabLoaded={activeTabLoaded}
             AId={AId}
         />
     );

@@ -5,16 +5,22 @@ import {PopupPage} from "../../../global/types/entity";
 import {ATEvent} from "../../../global/types/entity/ATEvent";
 import EventSnippets from "./EventSnippets";
 import PixelNetworks from "./PixelNetworks";
+import ScriptNotFound from "./ScriptNotFound";
+import {anyTrackNotInstalled} from "../../../global/utils";
 
 type Props = {
     ATEventLog: ATEvent[],
     eventSnippets: string[],
     page: PopupPage
     setPage: React.Dispatch<PopupPage>,
-    AId: string,
+    AId: string | undefined,
+    activeTabLoaded: boolean
 }
 
 export const getPage = (props: Props) => {
+    if (anyTrackNotInstalled(props.activeTabLoaded, props.AId))
+        return <ScriptNotFound />
+
     switch (props.page) {
         case PopupPage.EventSnippets:
             return <EventSnippets {...props} />
@@ -27,6 +33,7 @@ export const getPage = (props: Props) => {
 }
 
 const PageRouter: React.FC<Props> = (props) => {
+    console.log(props)
     return (
         <HeaderLayout
             {...props}

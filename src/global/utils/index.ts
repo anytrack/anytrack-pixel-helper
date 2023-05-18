@@ -29,3 +29,8 @@ export const getHostname = (url: string): string | null => {
         return null;
     }
 }
+
+// TODO: handle pending state when the page is loading
+export const anyTrackNotInstalled = (activeTabLoaded: boolean, AId: string | undefined) => {
+    return activeTabLoaded && AId === undefined
+}

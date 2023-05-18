@@ -10,7 +10,9 @@ declare global {
         ATEventLog: any[],
         ATeventSnippets: string[],
         pixelNetworkInfo: PixelNetworkInfo,
-        google_tag_manager: any
+        google_tag_manager: any,
+        // Check if window.onload event has abeen fired
+        loaded: boolean | undefined
     }
 }
 
@@ -56,9 +58,19 @@ function main () {
         }
     })
 
-    window.addEventListener('load', function() {
+    window.addEventListener('load', async function() {
         window.ATeventSnippets = getEventSnippets()
         window.pixelNetworkInfo.scriptInfo = getScriptInfo()
+
+        window.loaded = true
+        try {
+            await chrome.runtime.sendMessage({
+                type: ATMessageType.SendActiveTabLoadedStateToPopup,
+            })
+        } catch (_) {
+            console.log(_)
+        }
+
     })
 }
 
