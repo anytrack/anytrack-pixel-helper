@@ -8,7 +8,6 @@ import {
 } from "../../../../global/utils/pixelNetwork";
 import Pixel from "./Pixel";
 import {PixelNetworkInfo} from "../../../../global/types/entity/PixelNetwork";
-import {generateHash} from "../../../../global/utils";
 
 type Props = {
 }
