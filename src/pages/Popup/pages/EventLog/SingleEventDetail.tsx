@@ -10,7 +10,7 @@ type Props = {
 }
 
 const displayedAttributes = ['target', 'eventId', 'clickId', 'clientId', 'eventValue', 'currency',
-    'trackingGroup', 'link', 'brandName', 'transactionId', 'shippingPrice', 'taxPrice', 'items']
+     'link', 'brandName', 'transactionId', 'shippingPrice', 'taxPrice', 'items']
 
 const SingleEventArrayValue = (props: any) => {
     const {arrayValue} = props;
