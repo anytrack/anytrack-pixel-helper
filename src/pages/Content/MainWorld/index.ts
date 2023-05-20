@@ -1,17 +1,42 @@
 import {ATCustomEvent as ATCustomEvent} from "../../../global/types/entity/ATCustomEvent"
 import {ATEvent, StandardEventName} from "../../../global/types/entity/ATEvent";
+import {AidDefaultValue} from "../../../global/config";
 
-const anyTrackHandler = () => {
+const getAnyTrackDataWrapper = (args: any[], defaultResult: any) => {
+    try {
+        return AnyTrack.apply(null, args)
+    } catch (_) {
+        return defaultResult
+    }
+}
 
+const getAnyTrackConfig = () => {
+    console.log("getAnyTrackConfig", AnyTrack('aid'))
+    if (!AnyTrack('aid')) {
+        console.log("getAnyTrackConfig", AnyTrack('aid'))
+        // Handle case when AnyTrack is available, but AnyTrack('aid') is still undefined
+        document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToContentScript, {
+            detail: {
+                payload: {
+                    Aid: AidDefaultValue
+                }
+            }
+        }));
+        waitUntilAvailable(getAnyTrackConfig, () => AnyTrack('aid') !== undefined)
+        return;
+    }
     document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToContentScript, {
         detail: {
             payload: {
                 Aid: AnyTrack('aid'),
-                ATConfigPixel: AnyTrack('config', 'pixels')
+                ATConfigPixel: getAnyTrackDataWrapper(['config', 'pixels'], {})
             }
         }
     }));
 
+}
+
+const anyTrackEventHandler = () => {
     Object.values(StandardEventName)
         .forEach(eventName => {
             AnyTrack(
@@ -39,9 +64,9 @@ const gtmHandler = () => {
 
 }
 
-const waitUntilAvailable = (func: Function, stopCondition: Boolean) => {
+const waitUntilAvailable = (func: Function, stopConditionFunc: () => Boolean) => {
     const t = setInterval(function()  {
-        if (stopCondition) {
+        if (stopConditionFunc()) {
             func();
             clearInterval(t)
         }
@@ -50,7 +75,8 @@ const waitUntilAvailable = (func: Function, stopCondition: Boolean) => {
 }
 
 window.addEventListener("load", function () {
-    // When the page is loaded, sometimes AnyTrack SDK is not yet available
-    waitUntilAvailable(anyTrackHandler, typeof AnyTrack !== 'undefined')
-    waitUntilAvailable(gtmHandler, typeof window.google_tag_manager !== 'undefined')
+    waitUntilAvailable(gtmHandler, () => typeof window.google_tag_manager !== 'undefined')
 })
+
+waitUntilAvailable(getAnyTrackConfig,() => typeof AnyTrack !== 'undefined')
+waitUntilAvailable(anyTrackEventHandler, () => typeof AnyTrack !== 'undefined')

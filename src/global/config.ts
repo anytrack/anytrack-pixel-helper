@@ -16,3 +16,5 @@ export enum DisplayMessage {
     noScriptFound='No scripts were found on',
     scriptNotInSession='Script outside the head tag detected. Please place the AnyTrack script as early as possible in the'
 }
+
+export const AidDefaultValue = ''

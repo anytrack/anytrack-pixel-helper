@@ -13,7 +13,8 @@
   },
   "permissions": [
     "scripting",
-    "storage"
+    "storage",
+    "action"
   ],
   "host_permissions": [
     "<all_urls>"

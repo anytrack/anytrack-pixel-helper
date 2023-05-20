@@ -1,10 +1,10 @@
 var webpack = require('webpack'),
-  path = require('path'),
-  fileSystem = require('fs-extra'),
-  env = require('./utils/env'),
-  CopyWebpackPlugin = require('copy-webpack-plugin'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  TerserPlugin = require('terser-webpack-plugin');
+    path = require('path'),
+    fileSystem = require('fs-extra'),
+    env = require('./utils/env'),
+    CopyWebpackPlugin = require('copy-webpack-plugin'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    TerserPlugin = require('terser-webpack-plugin');
 var { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
@@ -103,8 +103,8 @@ var options = {
   resolve: {
     alias: alias,
     extensions: fileExtensions
-      .map((extension) => '.' + extension)
-      .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
+        .map((extension) => '.' + extension)
+        .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
     new CleanWebpackPlugin({ verbose: false }),
@@ -120,11 +120,11 @@ var options = {
           transform: function (content, path) {
             // generates the manifest file using the package.json informations
             return Buffer.from(
-              JSON.stringify({
-                description: process.env.npm_package_description,
-                version: process.env.npm_package_version,
-                ...JSON.parse(content.toString()),
-              })
+                JSON.stringify({
+                  description: process.env.npm_package_description,
+                  version: process.env.npm_package_version,
+                  ...JSON.parse(content.toString()),
+                })
             );
           },
         },
@@ -142,25 +142,18 @@ var options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/assets/img/icon-128.png',
-          to: path.join(__dirname, 'build'),
-          force: true,
-        },
-      ],
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
           from: 'src/assets/img/logo*.png',
           to: path.join(__dirname, 'build'),
           force: true,
         },
       ],
     }),
+    // https://developer.chrome.com/docs/extensions/reference/action/#method-setIcon
+    // For some reasons, the icon must be in the root directory of the build tool for the above method to work :(
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/assets/img/icon-34.png',
+          from: 'src/assets/img/logo-square-grey-128.png',
           to: path.join(__dirname, 'build'),
           force: true,
         },

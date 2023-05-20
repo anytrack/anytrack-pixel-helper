@@ -24,7 +24,7 @@ const Popup = () => {
     const [eventSnippets, setEventSnippet] = React.useState<string[]>([])
     const [activeTabLoaded, setActiveTabLoaded] = React.useState<boolean>(false)
 
-    const getATEventLogAndAIdFromContentScript = () => ([window.ATEventLog, window.pixelNetworkInfo, window.ATeventSnippets, window.location.hostname, window.loaded])
+    const getDataFromActiveTab = () => ([window.ATEventLog, window.pixelNetworkInfo, window.ATeventSnippets, window.location.hostname, window.loaded])
 
     React.useEffect(() => {
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -53,10 +53,9 @@ const Popup = () => {
             try {
                 const result = await chrome.scripting.executeScript({
                     target: { tabId: activeTab.id },
-                    func: getATEventLogAndAIdFromContentScript
+                    func: getDataFromActiveTab
                 }) as InjectionResult<[ATEvent[], PixelNetworkInfo & {Aid: string}, string[], string, boolean | undefined]>[]
                 if (result.length) {
-                    console.log("result", result)
                     const temp = result[0].result
                     temp[0].reverse()
                     setATEventLog(temp[0])

@@ -20,7 +20,8 @@ export enum ScriptInitiator {
 export type PixelNetworkInfo = {
     scriptInfo: any[],
     gtm: {[key: string]: any},
-    ATConfigPixel: any
+    ATConfigPixel: any,
+    Aid?: string
 }
 
 export type PixelNetworkConfig = {
