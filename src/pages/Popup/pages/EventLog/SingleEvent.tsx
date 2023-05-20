@@ -55,10 +55,11 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
                 />}
             </ListItemButton>
             <Collapse
-                in={open} timeout="auto" unmountOnExit
+                in={open} unmountOnExit
                 sx={{
                     px: 2.5,
                 }}
+                timeout={10}
             >
                 <SingleEventDetail event={event}/>
             </Collapse>
