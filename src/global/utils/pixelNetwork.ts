@@ -71,7 +71,7 @@ export const identifyScriptInitiatorFromScript = (scriptInfo: {[key: string]: an
     if (!pixelAccountIds || !pixelAccountIds.length)
         return ScriptInitiator.OnPage
 
-    return Object.values(scriptInfo).some(value => pixelAccountIds.some((id: string) => value.includes(id))) ? ScriptInitiator.AnyTrack : ScriptInitiator.OnPage
+    return Object.values(scriptInfo).some(value => pixelAccountIds.some((id: string) => typeof value === 'string' && value.includes(id))) ? ScriptInitiator.AnyTrack : ScriptInitiator.OnPage
 }
 
 export const getPixelScripts = (window: Window) => {

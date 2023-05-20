@@ -17,8 +17,13 @@ export enum ScriptInitiator {
     OnPage='OnPage'
 }
 
+export type ScriptInfo = {
+    inHeadTag: boolean,
+} & {[key in string]: any}
+
+
 export type PixelNetworkInfo = {
-    scriptInfo: any[],
+    scriptInfo: ScriptInfo[],
     gtm: {[key: string]: any},
     ATConfigPixel: any,
     Aid?: string

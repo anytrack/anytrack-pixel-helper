@@ -11,6 +11,7 @@ export const getScriptInfo = () => {
                 if (v.name === 'src' && v.value && v.value.startsWith('//')) {
                     result[v.name] = window.location.protocol + result[v.name]
                 }
+                result.inHeadTag = script.parentElement?.nodeName === 'HEAD'
             })
             return result;
         })

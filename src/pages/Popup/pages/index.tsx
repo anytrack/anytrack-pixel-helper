@@ -32,8 +32,8 @@ export const getPage = (props: Props) => {
     }
 }
 
+
 const PageRouter: React.FC<Props> = (props) => {
-    console.log(props)
     return (
         <HeaderLayout
             {...props}
