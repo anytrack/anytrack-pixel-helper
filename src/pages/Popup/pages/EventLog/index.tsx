@@ -1,11 +1,12 @@
 import React from 'react';
-import {Box, IconButton, Link, List, Tooltip} from "@mui/material";
+import {Box, IconButton, Link, List, Paper, Tooltip, Typography} from "@mui/material";
 import {ATEvent} from '../../../../global/types/entity/ATEvent';
 import SingleEvent from './SingleEvent';
 import anyTrackLogo from '../../../../assets/img/logo-square.png'
 import SubHeader from "../../components/SubHeader";
 import ScriptInWrongPosition from "../../components/ScriptInWrongPosition";
 import { getPixelScripts } from '../../../../global/utils/pixelNetwork';
+import {grey} from "@mui/material/colors";
 
 type Props = {
     ATEventLog: ATEvent[],
@@ -23,69 +24,95 @@ const isAnyTrackScriptInHead = () => {
     return anyTrackInitScript?.inHeadTag
 }
 
+const EmptyEventsPlaceHolder = () => {
+    return (
+        <Box
+            component={Paper}
+            sx={{
+                py: 3,
+                backgroundColor: `${grey[50]}`
+            }}
+        >
+            <Typography
+                className={"content-text"}
+                sx={{
+                    textAlign: 'center',
+                }}
+            >
+                No events recorded yet.
+            </Typography>
+        </Box>
+    )
+}
+
 const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
     const handleIconClick = () => {
         window.open(`https://dashboard.anytrack.io/asset/settings?aid=${AId}`)
     }
     return (
         <List
-            sx={{ width: '100%', bgcolor: 'background.paper', mt: 0.5, px: 0.5 }}
+            sx={{
+                width: '100%',
+                bgcolor: 'background.paper', mt: 0.5, px: 0.5,
+                pb: !ATEventLog.length ? 0 : 1
+            }}
             dense
             subheader={
-            <Box>
-                {isAnyTrackScriptInHead() ? <></> : <ScriptInWrongPosition/>}
-                <Box
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                    }}
-                >
-                    <SubHeader
+                <Box>
+                    {isAnyTrackScriptInHead() ? <></> : <ScriptInWrongPosition/>}
+                    <Box
                         sx={{
-                            ml: 1
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
                         }}
                     >
-                        {`Asset ID: ${AId}`}
-                    </SubHeader>
-                    <Tooltip
-                        title={"View on AnyTrack"}
-                        placement={"left"}
-                    >
-                        <Box
-                            onClick={handleIconClick}
+                        <SubHeader
                             sx={{
-                                display: 'flex'
+                                ml: 1
                             }}
                         >
-                            <Link
-                                component="button"
-                                variant={"body2"}
-                                className={"header__link"}
-                                underline={"none"}
+                            {`Asset ID: ${AId}`}
+                        </SubHeader>
+                        <Tooltip
+                            title={"View on AnyTrack"}
+                            placement={"left"}
+                        >
+                            <Box
+                                onClick={handleIconClick}
+                                sx={{
+                                    display: 'flex'
+                                }}
                             >
-                                Open in
-                            </Link>
-                            <IconButton
-                            >
-                                <Box
-                                    component={"img"}
-                                    src={anyTrackLogo}
-                                    sx={{
-                                        width: theme => theme.spacing(2.5),
-                                        height: theme => theme.spacing(2.5)
-                                    }}
-                                />
-                            </IconButton>
-                        </Box>
-                    </Tooltip>
+                                <Link
+                                    component="button"
+                                    variant={"body2"}
+                                    className={"header__link"}
+                                    underline={"none"}
+                                >
+                                    Open in
+                                </Link>
+                                <IconButton
+                                >
+                                    <Box
+                                        component={"img"}
+                                        src={anyTrackLogo}
+                                        sx={{
+                                            width: theme => theme.spacing(2.5),
+                                            height: theme => theme.spacing(2.5)
+                                        }}
+                                    />
+                                </IconButton>
+                            </Box>
+                        </Tooltip>
+                    </Box>
                 </Box>
-            </Box>
             }
         >
-            {ATEventLog.map((event, index) => {
-                return <SingleEvent event={event} key={event.eventId} index={index}/>
-            })}
+            {!ATEventLog.length ? <EmptyEventsPlaceHolder/> :
+                ATEventLog.map((event, index) => {
+                    return <SingleEvent event={event} key={event.eventId} index={index}/>
+                })}
         </List>
     );
 }
