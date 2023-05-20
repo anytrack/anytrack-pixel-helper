@@ -61,7 +61,7 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                             <Link
                                 component="button"
                                 variant={"body2"}
-                                className={"content-text"}
+                                className={"header__link"}
                                 underline={"none"}
                             >
                                 Open in

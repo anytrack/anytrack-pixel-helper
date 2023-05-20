@@ -1,10 +1,9 @@
 import React from 'react';
 import logo from '../../../assets/img/logo-square.png';
-import {Avatar, Box, Divider, IconButton, Link, Typography} from "@mui/material";
+import {Avatar, Box, Divider, Link, Typography} from "@mui/material";
 import {PopupPage} from "../../../global/types/entity";
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import {getPixelScripts} from "../../../global/utils/pixelNetwork";
-import {anyTrackNotInstalled} from "../../../global/utils";
 
 type Props = {
     page: PopupPage,
@@ -33,6 +32,7 @@ const GoBackNavigation: React.FC<Props> = (props) => {
                 component="button"
                 variant="body2"
                 underline={"none"}
+                className={"header__link"}
                 sx={{
                     ml: 0.5
                 }}
@@ -68,7 +68,7 @@ const Header: React.FC<Props> = (props) => {
                     component="button"
                     variant="body2"
                     onClick={() => setPage(PopupPage.Pixel)}
-                    className={"content-text"}
+                    className={"header__link"}
                     sx={{
                         pr: 1.5,
                         display: 'block'
@@ -80,7 +80,7 @@ const Header: React.FC<Props> = (props) => {
                     component="button"
                     variant="body2"
                     onClick={() => setPage(PopupPage.EventSnippets)}
-                    className={"content-text"}
+                    className={"header__link"}
                     sx={{
                         pr: 1.5,
                         pb: 0.75
