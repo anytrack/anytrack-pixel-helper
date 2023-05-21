@@ -7,6 +7,7 @@ import SingleEventDetail from "./SingleEventDetail";
 import {grey} from '@mui/material/colors';
 import {formatDate} from "../../../../global/utils";
 import ListItemText from "../../components/ListItemText";
+import CollapseController from "../../components/CollapseController";
 
 type Props = {
     event: ATEvent,
@@ -48,11 +49,7 @@ const SingleEventLog: React.FC<Props> = ({event, index}) => {
                     secondary={formatDate(event.eventTime)}
                     className={"text-truncate"}
                 />
-                {open ? <ExpandLess
-                    sx={{ fontSize: '1.2rem' }}
-                /> : <ExpandMore
-                    sx={{ fontSize: '1.2rem' }}
-                />}
+               <CollapseController open={open} />
             </ListItemButton>
             <Collapse
                 in={open} unmountOnExit

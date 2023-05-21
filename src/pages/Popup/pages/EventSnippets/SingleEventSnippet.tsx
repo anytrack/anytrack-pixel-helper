@@ -4,6 +4,7 @@ import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import ListItemText from "../../components/ListItemText";
 import CodeBlock from "../../components/CodeBlock";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
+import CollapseController from "../../components/CollapseController";
 
 type Props = {
     eventSnippet: string,
@@ -54,11 +55,7 @@ const SingleEventSnippet: React.FC<Props> = ({eventSnippet, snippetIndex}) => {
                     primary={`${parameters[0]}, ${parameters[1]}`}
                     className={"text-truncate"}
                 />
-                {open ? <ExpandLess
-                    sx={{ fontSize: '1.2rem' }}
-                /> : <ExpandMore
-                    sx={{ fontSize: '1.2rem' }}
-                />}
+                <CollapseController open={open} />
             </ListItemButton>
             <Collapse
                 in={open} unmountOnExit

@@ -11,9 +11,9 @@ const getAnyTrackDataWrapper = (args: any[], defaultResult: any) => {
 }
 
 const getAnyTrackConfig = () => {
-    console.log("getAnyTrackConfig", AnyTrack('aid'))
+    // console.log("getAnyTrackConfig", AnyTrack('aid'))
     if (!AnyTrack('aid')) {
-        console.log("getAnyTrackConfig", AnyTrack('aid'))
+        // console.log("getAnyTrackConfig", AnyTrack('aid'))
         // Handle case when AnyTrack is available, but AnyTrack('aid') is still undefined
         document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToContentScript, {
             detail: {

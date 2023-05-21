@@ -45,7 +45,7 @@ const Popup = () => {
             }
         });
 
-        // Todo: add comment
+        // Get AnyTrack, GTM, and script data from active tab of the extension Popup
         (async () => {
             const activeTab = await getActiveTab()
             if (!activeTab || !activeTab.id)

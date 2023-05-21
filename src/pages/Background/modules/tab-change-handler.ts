@@ -13,7 +13,6 @@ const handler = async (tabId: number) => {
             const temp = result[0].result
             const {Aid} = temp[0]
             const activeTabLoaded = temp[1]
-            console.log(tabId, temp)
             if (activeTabLoaded && Aid === undefined) {
                 chrome.action.setIcon({
                     tabId,
