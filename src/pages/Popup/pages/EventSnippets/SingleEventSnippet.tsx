@@ -1,26 +1,31 @@
 import {Box, Collapse, ListItemButton, ListItemIcon, Paper} from '@mui/material';
 import React from 'react';
-import {ATEvent} from "../../../../global/types/entity/ATEvent";
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import {ExpandLess, ExpandMore} from "@mui/icons-material";
-import SingleEventDetail from "./SingleEventDetail";
-import {grey} from '@mui/material/colors';
-import {formatDate} from "../../../../global/utils";
+import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import ListItemText from "../../components/ListItemText";
+import CodeBlock from "../../components/CodeBlock";
+import {ExpandLess, ExpandMore} from "@mui/icons-material";
 
 type Props = {
-    event: ATEvent,
-    index: number
+    eventSnippet: string,
+    snippetIndex: number
 }
-const SingleEvent: React.FC<Props> = ({event, index}) => {
+
+const parseAnyTrackParameters = (eventSnippet: string) => {
+    const matches = eventSnippet.match(/^AnyTrack\(['"](.+?)['"]\s*,\s*['"](.+?)['"]\s*,/)
+    if (matches !== null)
+        return [matches[1], matches[2]]
+    return []
+}
+
+const SingleEventSnippet: React.FC<Props> = ({eventSnippet, snippetIndex}) => {
     const [open, setOpen] = React.useState(false);
+    const parameters = parseAnyTrackParameters(eventSnippet)
 
     return (
         <Box
             component={Paper}
             sx={{
-                backgroundColor: open ? grey[50] : '',
-                mt: !index ? 1 : 0
+                mt: !snippetIndex ? 1 : 0
             }}
             elevation={open ? 1 : 0}
         >
@@ -28,7 +33,8 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
                 onClick={() => setOpen(!open)}
                 disableGutters={true}
                 sx={{
-                    px: 1,
+                    pl: 0.5,
+                    pr: 1
                 }}
             >
                 <ListItemIcon
@@ -36,16 +42,16 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
                         minWidth: theme => theme.spacing(1.5)
                     }}
                 >
-                    <FiberManualRecordIcon
+                    <CodeRoundedIcon
                         color={"primary"}
                         sx={{
-                            fontSize: '0.5rem',
+                            fontSize: '1rem',
+                            mr: 1,
                         }}
                     />
                 </ListItemIcon>
                 <ListItemText
-                    primary={event.eventName}
-                    secondary={formatDate(event.eventTime)}
+                    primary={`${parameters[0]}, ${parameters[1]}`}
                     className={"text-truncate"}
                 />
                 {open ? <ExpandLess
@@ -57,14 +63,18 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
             <Collapse
                 in={open} unmountOnExit
                 sx={{
-                    px: 2.5,
+                    '& pre': {
+                        my: '0 !important'
+                    },
                 }}
                 timeout={10}
             >
-                <SingleEventDetail event={event}/>
+                <CodeBlock
+                    eventSnippet={eventSnippet}
+                />
             </Collapse>
         </Box>
     )
 }
 
-export default SingleEvent;
+export default SingleEventSnippet;

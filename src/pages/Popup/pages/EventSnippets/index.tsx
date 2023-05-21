@@ -1,7 +1,7 @@
 import React from 'react';
 import {Stack} from "@mui/material";
 import SubHeader from "../../components/SubHeader";
-import CodeBlock from '../../components/CodeBlock';
+import SingleEventSnippet from "./SingleEventSnippet";
 
 type Props = {
     eventSnippets: string[]
@@ -15,16 +15,20 @@ const EventSnippets: React.FC<Props> = ({ eventSnippets}) => {
                     ml: 1.5
                 }}
             >
-                {`Snippet on ${window.tabHostName}`}
+                {`Snippets on ${window.tabHostName}`}
             </SubHeader>
             <Stack
                 sx={{
-                    px: 1
+                    px: 1,
+                    pb: 1.5
                 }}
                 spacing={1}
             >
                 {eventSnippets.map((eventSnippet, index) => (
-                    <CodeBlock key={eventSnippet + index} eventSnippet={eventSnippet} />
+                    <SingleEventSnippet
+                        key={eventSnippet + index} eventSnippet={eventSnippet}
+                        snippetIndex={index}
+                    />
                 ))}
             </Stack>
         </>

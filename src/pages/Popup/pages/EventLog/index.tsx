@@ -3,7 +3,7 @@ import {Box, IconButton, Link, List, Paper, Tooltip, Typography} from "@mui/mate
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import {ATEvent} from '../../../../global/types/entity/ATEvent';
-import SingleEvent from './SingleEvent';
+import SingleEventLog from './SingleEventLog';
 import SubHeader from "../../components/SubHeader";
 import ScriptInWrongPosition from "../../components/ScriptInWrongPosition";
 import { getPixelScripts } from '../../../../global/utils/pixelNetwork';
@@ -132,7 +132,7 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
         >
             {!ATEventLog.length ? <EmptyEventsPlaceHolder/> :
                 ATEventLog.map((event, index) => {
-                    return <SingleEvent event={event} key={event.eventId} index={index}/>
+                    return <SingleEventLog event={event} key={event.eventId} index={index}/>
                 })}
         </List>
     );

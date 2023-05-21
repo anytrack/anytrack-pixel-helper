@@ -31,7 +31,6 @@ const Pixel: React.FC<Props> = ({scriptInitiator, pixelNetwork, accountId}) => {
                     sx={{
                         fontSize: '1rem',
                         mr: 1,
-                        mb: 2
                     }}
                 />
             </ListItemIcon>
