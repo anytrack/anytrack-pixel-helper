@@ -37,7 +37,7 @@ const SingleEvent: React.FC<Props> = ({event, index}) => {
                     }}
                 >
                     <FiberManualRecordIcon
-                        color={"success"}
+                        color={"primary"}
                         sx={{
                             fontSize: '0.5rem',
                         }}

@@ -1,8 +1,9 @@
 import React from 'react';
 import {Box, IconButton, Link, List, Paper, Tooltip, Typography} from "@mui/material";
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import {ATEvent} from '../../../../global/types/entity/ATEvent';
 import SingleEvent from './SingleEvent';
-import anyTrackLogo from '../../../../assets/img/logo-square.png'
 import SubHeader from "../../components/SubHeader";
 import ScriptInWrongPosition from "../../components/ScriptInWrongPosition";
 import { getPixelScripts } from '../../../../global/utils/pixelNetwork';
@@ -67,13 +68,35 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                             justifyContent: 'space-between'
                         }}
                     >
-                        <SubHeader
+                        <Box
                             sx={{
-                                ml: 1
+                                display: 'flex',
+                                alignItems: 'center',
                             }}
+                            onClick={() => {navigator.clipboard.writeText(AId || 'undefined').catch(console.log)}}
                         >
-                            {`Asset ID: ${AId}`}
-                        </SubHeader>
+                            <SubHeader
+                                sx={{
+                                    ml: 1,
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                {`Property ID: ${AId}`}
+                            </SubHeader>
+                            <IconButton
+                                color={"primary"}
+                                sx={{
+                                    pl: 0.5,
+                                    mb: 0.5
+                                }}
+                            >
+                                <ContentCopyRoundedIcon
+                                    sx={{
+                                        fontSize: '0.75rem'
+                                    }}
+                                />
+                            </IconButton>
+                        </Box>
                         <Tooltip
                             title={"View on AnyTrack"}
                             placement={"left"}
@@ -93,13 +116,11 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                                     Open in
                                 </Link>
                                 <IconButton
+                                    color="primary"
                                 >
-                                    <Box
-                                        component={"img"}
-                                        src={anyTrackLogo}
+                                    <ArrowOutwardRoundedIcon
                                         sx={{
-                                            width: theme => theme.spacing(2.5),
-                                            height: theme => theme.spacing(2.5)
+                                            fontSize: '1.25rem'
                                         }}
                                     />
                                 </IconButton>
