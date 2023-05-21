@@ -17,7 +17,7 @@ const PixelNetworks: React.FC<Props> = ({}) => {
         .map(scriptInfo => ({
             scriptInitiator: identifyScriptInitiatorFromScript(scriptInfo, window.pixelNetworkInfo as PixelNetworkInfo),
             pixelNetwork: identifyPixelNetworkFromScript(scriptInfo),
-            accountId: `script src: ${scriptInfo.src}`,
+            accountId: `${scriptInfo.src}`,
         }))
 
     return (

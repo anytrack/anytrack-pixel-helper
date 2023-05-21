@@ -1,26 +1,11 @@
 import React from 'react';
 import {Stack} from "@mui/material";
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import {githubGist, atelierCaveLight, atelierDuneLight, atelierEstuaryLight, atelierForestLight, solarizedLight} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SubHeader from "../../components/SubHeader";
+import CodeBlock from '../../components/CodeBlock';
 
 type Props = {
     eventSnippets: string[]
 }
-
-const CodeBlock = (props: any) => {
-    return (
-        <SyntaxHighlighter
-            language="javascript"
-            style={atelierDuneLight}
-            wrapLongLines={true}
-            className={"content-text"}
-        >
-            {props.eventSnippet}
-        </SyntaxHighlighter>
-    );
-}
-
 
 const EventSnippets: React.FC<Props> = ({ eventSnippets}) => {
     return (

@@ -1,9 +1,10 @@
-import {Chip, ListItem, ListItemIcon, Tooltip} from '@mui/material';
+import {ListItem, ListItemIcon} from '@mui/material';
 import React from 'react';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import ListItemText from "../../components/ListItemText";
 import {PixelNetwork, ScriptInitiator} from "../../../../global/types/entity/PixelNetwork";
 import {getDisplayNameForPixelNetwork} from "../../../../global/utils/pixelNetwork";
+import CodeBlock from "../../components/CodeBlock";
 
 type Props = {
     scriptInitiator: ScriptInitiator,
@@ -13,38 +14,46 @@ type Props = {
 
 const Pixel: React.FC<Props> = ({scriptInitiator, pixelNetwork, accountId}) => {
     return (
-        <ListItem>
+        <ListItem
+            sx={{
+                pl: 1,
+                py: 0,
+                my: 0.5
+            }}
+        >
             <ListItemIcon
                 sx={{
                     minWidth: theme => theme.spacing(1.5)
                 }}
             >
-                <FiberManualRecordIcon
-                    color={"success"}
+                <CodeRoundedIcon
+                    color={"primary"}
                     sx={{
-                        fontSize: '0.5rem',
+                        fontSize: '1rem',
+                        mr: 1,
+                        mb: 2
                     }}
                 />
             </ListItemIcon>
             <ListItemText
                 primary={getDisplayNameForPixelNetwork(pixelNetwork)}
                 secondary={accountId}
-                className={"text-truncate"}
+                sx={{
+                    '& pre': {
+                        my: 0,
+                        py: '0 !important'
+                    },
+                    wordWrap: 'break-word'
+                }}
+                secondaryTypographyProps={{
+                    component: CodeBlock,
+                    eventSnippet: accountId,
+                }}
+                primaryTypographyProps={{
+                    ml: 0.5,
+                    my: 0.5
+                }}
             />
-            {scriptInitiator !== ScriptInitiator.AnyTrack ?
-                <Tooltip
-                    title={"AnyTrack automatically installs pixels on your website. Please remove pixel code from this page to avoid event duplication."}>
-                    <Chip
-                        label={scriptInitiator}
-                        size={"small"}
-                        color={"warning"}
-                    />
-                </Tooltip> : <Chip
-                    label={scriptInitiator}
-                    size={"small"}
-                    color={"primary"}
-                />
-            }
         </ListItem>
     )
 }
