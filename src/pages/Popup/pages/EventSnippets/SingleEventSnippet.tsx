@@ -3,7 +3,6 @@ import React from 'react';
 import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import ListItemText from "../../components/ListItemText";
 import CodeBlock from "../../components/CodeBlock";
-import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import CollapseController from "../../components/CollapseController";
 
 type Props = {
@@ -44,7 +43,6 @@ const SingleEventSnippet: React.FC<Props> = ({eventSnippet, snippetIndex}) => {
                     }}
                 >
                     <CodeRoundedIcon
-                        color={"primary"}
                         sx={{
                             fontSize: '1rem',
                             mr: 1,

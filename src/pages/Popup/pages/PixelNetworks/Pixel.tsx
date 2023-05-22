@@ -27,7 +27,6 @@ const Pixel: React.FC<Props> = ({scriptInitiator, pixelNetwork, accountId}) => {
                 }}
             >
                 <CodeRoundedIcon
-                    color={"primary"}
                     sx={{
                         fontSize: '1rem',
                         mr: 1,
