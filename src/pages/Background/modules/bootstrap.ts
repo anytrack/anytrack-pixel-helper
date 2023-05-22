@@ -8,7 +8,6 @@ const badgeHandler = async () => {
             color: BadgeColor.background
         })
 
-        // @ts-ignore
         await chrome.action.setBadgeTextColor({
             color: BadgeColor.text
         })

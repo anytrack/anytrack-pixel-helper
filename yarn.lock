@@ -1471,10 +1471,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/chrome@^0.0.202":
-  version "0.0.202"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.202.tgz#ecc6747cc797b6b8427cbb5d9723c91dfc8bd3f4"
-  integrity sha512-Oc4daL9sFS+9MToVZPLMBxR7PxsEdod0b8wOY11lRr06GJp43MORvHeDyMD8QzeRGT6HI13oaYAe2PBgvALc4w==
+"@types/chrome@^0.0.236":
+  version "0.0.236"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.236.tgz#f967769015c458718d4328a54682fa24f0c62c92"
+  integrity sha512-ArQoxO9WtDY6GWcT2cpo+D+hyASPeFt7PHQEUDXwQhRS00Rbop07rnEOA046yws0HkM83Tcew/hW6Dgvnj4iMQ==
   dependencies:
     "@types/filesystem" "*"
     "@types/har-format" "*"
