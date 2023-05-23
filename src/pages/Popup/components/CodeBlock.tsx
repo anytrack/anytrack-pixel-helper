@@ -1,14 +1,6 @@
 import React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-// @ts-ignore
-import {
-    atelierCaveLight,
-    atelierDuneLight,
-    atelierEstuaryLight,
-    atelierForestLight,
-    githubGist,
-    solarizedLight
-} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import {atelierDuneLight} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 type Props = {
     eventSnippet: string

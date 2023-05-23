@@ -1,13 +1,11 @@
 import React from 'react';
-// @ts-ignore
-import logo from '../../assets/img/logo-square.png';
 import {ATMessage, ATMessageType} from "../../global/types/entity/ATMessage";
 import {ATEvent} from "../../global/types/entity/ATEvent";
 import {getActiveTab} from "../../global/utils";
 import {PopupPage} from "../../global/types/entity";
 import PageRouter from "./pages";
-import InjectionResult = chrome.scripting.InjectionResult;
 import {PixelNetworkInfo} from "../../global/types/entity/PixelNetwork";
+import InjectionResult = chrome.scripting.InjectionResult;
 
 declare global {
     interface Window {

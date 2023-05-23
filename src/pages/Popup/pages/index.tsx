@@ -27,7 +27,6 @@ export const getPage = (props: Props) => {
         case PopupPage.Pixel:
             return <PixelNetworks />
         default:
-            // return <EventSnippets {...props} />
             return <EventLog {...props} />
     }
 }

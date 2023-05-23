@@ -2,11 +2,7 @@ import React from 'react';
 import SubHeader from "../components/SubHeader";
 import {DisplayMessage} from "../../../global/config";
 
-type Props = {
-
-}
-
-const ScriptInWrongPosition: React.FC<Props> = (props) => {
+const ScriptInWrongPosition = () => {
     return (
         <SubHeader
             sx={{
