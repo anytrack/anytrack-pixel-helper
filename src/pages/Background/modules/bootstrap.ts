@@ -12,7 +12,7 @@ const badgeHandler = async () => {
             color: BadgeColor.text
         })
     } catch (e) {
-        console.log(e)
+        console.error(e)
     }
 }
 
@@ -22,7 +22,7 @@ const setupGA4ClientId = () => {
             try {
                 await getOrCreateGA4ClientId()
             } catch (e) {
-                console.log(e)
+                console.error(e)
             }
         }
     })
@@ -33,6 +33,6 @@ export const bootstrap = async () => {
         await badgeHandler()
         setupGA4ClientId()
     } catch (e) {
-        console.log(e)
+        console.error(e)
     }
 }

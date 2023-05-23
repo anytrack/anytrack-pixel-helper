@@ -39,7 +39,6 @@ function main () {
     })
 
     document.addEventListener(ATCustomEvent.SendPixelNetworkToContentScript, async function (e: any) {
-        // console.log("pixel", e.detail.payload)
         if (e.detail !== undefined && e.detail.payload !== undefined) {
             window.pixelNetworkInfo = {...window.pixelNetworkInfo, ...e.detail.payload}
             await notify(ATMessageType.SendActiveTabLoadedStateToPopup)

@@ -73,7 +73,7 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                                 display: 'flex',
                                 alignItems: 'center',
                             }}
-                            onClick={() => {navigator.clipboard.writeText(AId || 'undefined').catch(console.log)}}
+                            onClick={() => {navigator.clipboard.writeText(AId || 'undefined').catch(console.error)}}
                         >
                             <SubHeader
                                 sx={{

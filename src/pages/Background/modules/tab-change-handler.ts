@@ -26,7 +26,6 @@ const handler = async (tabId: number) => {
 
 export const tabChangeHandler = () => {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        console.log(request)
         switch (request.type) {
             case ATMessageType.SendAnyTrackIdToBackground:
                 const { Aid } = request.payload
@@ -34,7 +33,7 @@ export const tabChangeHandler = () => {
                     chrome.action.setIcon({
                         tabId: sender.tab?.id,
                         path: "logo-square-grey-128.png",
-                    })
+                    }).catch(console.error)
                 break;
             default:
         }

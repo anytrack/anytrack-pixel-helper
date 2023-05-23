@@ -43,6 +43,6 @@ export const notify = async (type: ATMessageType, payload?: any) => {
             payload
         })
     } catch (_) {
-        console.log(_)
+        console.error(_)
     }
 }

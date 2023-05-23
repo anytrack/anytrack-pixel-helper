@@ -13,7 +13,7 @@ export function messageHandler () {
                     chrome.action.setBadgeText({
                         text: noEvents > BadgeMaxEvent ? `>${BadgeMaxEvent}` : noEvents.toString(),
                         tabId: sender.tab?.id
-                    }).catch(console.log)
+                    }).catch(console.error)
                     sendResponse({})
                 })()
                 break;
@@ -25,7 +25,7 @@ export function messageHandler () {
                             cacheGA4ClientId = await getOrCreateGA4ClientId()
                         await sendGA4Event(params, cacheGA4ClientId)
                     } catch (_) {
-
+                        console.error(_)
                     }
                     sendResponse()
                 })();
