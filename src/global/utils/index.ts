@@ -1,3 +1,4 @@
+import { ATMessageType } from "../types/entity/ATMessage";
 import Tab = chrome.tabs.Tab;
 
 export const getActiveTab = async (): Promise<Tab | undefined> => {
@@ -33,4 +34,15 @@ export const getHostname = (url: string): string | null => {
 // TODO: handle pending state when the page is loading
 export const anyTrackNotInstalled = (activeTabLoaded: boolean, AId: string | undefined) => {
     return activeTabLoaded && AId === undefined
+}
+
+export const notify = async (type: ATMessageType, payload?: any) => {
+    try {
+        await chrome.runtime.sendMessage({
+            type,
+            payload
+        })
+    } catch (_) {
+        console.log(_)
+    }
 }

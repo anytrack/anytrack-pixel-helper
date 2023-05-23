@@ -28,7 +28,7 @@ export const tabChangeHandler = () => {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         console.log(request)
         switch (request.type) {
-            case ATMessageType.SendActiveTabLoadedStateToBackground:
+            case ATMessageType.SendAnyTrackIdToBackground:
                 const { Aid } = request.payload
                 if (Aid === undefined)
                     chrome.action.setIcon({

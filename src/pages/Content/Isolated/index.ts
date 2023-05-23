@@ -3,6 +3,7 @@ import {ATMessageType} from "../../../global/types/entity/ATMessage";
 import {getEventSnippets} from "./modules/eventSnippet";
 import {PixelNetworkInfo} from "../../../global/types/entity/PixelNetwork";
 import {getScriptInfo} from "./modules/pixelNetwork";
+import {notify} from "../../../global/utils";
 
 
 declare global {
@@ -11,7 +12,7 @@ declare global {
         ATeventSnippets: string[],
         pixelNetworkInfo: PixelNetworkInfo,
         google_tag_manager: any,
-        // Check if window.onload event has abeen fired
+        // Check if window.onload event has been fired
         loaded: boolean | undefined
     }
 }
@@ -24,25 +25,6 @@ window.pixelNetworkInfo = {
     ATConfigPixel: {},
 }
 
-const notify = async (type: ATMessageType, payload?: any) => {
-    try {
-        await chrome.runtime.sendMessage({
-            type,
-            payload
-        })
-    } catch (_) {
-        console.log(_)
-    }
-}
-
-const notifyPopup = async (payload?: any) => {
-    return notify(ATMessageType.SendActiveTabLoadedStateToPopup, payload)
-}
-
-const notifyBackground = async(payload?: any) => {
-    return notify(ATMessageType.SendActiveTabLoadedStateToBackground, payload)
-}
-
 function main () {
     // This is to avoid error when extension updates a new version
     if (!chrome.runtime)
@@ -51,8 +33,8 @@ function main () {
     document.addEventListener(ATCustomEvent.SendAnyTrackEventToContentScript, async function (e: any) {
         if (e.detail !== undefined && e.detail.payload !== undefined) {
             window.ATEventLog.push(e.detail.payload)
-            await notifyBackground(window.ATEventLog.length)
-            await notifyPopup(window.ATEventLog)
+            await notify(ATMessageType.SendEventToServiceWorker, window.ATEventLog.length)
+            await notify(ATMessageType.SendEventToPopup, window.ATEventLog)
         }
     })
 
@@ -60,12 +42,8 @@ function main () {
         // console.log("pixel", e.detail.payload)
         if (e.detail !== undefined && e.detail.payload !== undefined) {
             window.pixelNetworkInfo = {...window.pixelNetworkInfo, ...e.detail.payload}
+            await notify(ATMessageType.SendActiveTabLoadedStateToPopup)
         }
-        await notifyPopup()
-        // Fundamentally, notify background that AnyTrack is available to change popup icon
-        await notifyBackground({
-            Aid: window.pixelNetworkInfo.Aid
-        })
     })
 
     window.addEventListener('load', async function() {
@@ -73,10 +51,10 @@ function main () {
         window.pixelNetworkInfo.scriptInfo = getScriptInfo()
 
         window.loaded = true
-        await notifyPopup()
+        await notify(ATMessageType.SendActiveTabLoadedStateToPopup)
 
-        // Notify to background to change popup icon
-        await notifyBackground({ Aid: window.pixelNetworkInfo.Aid })
+        // Notify to background to change popup icon.
+        await notify(ATMessageType.SendAnyTrackIdToBackground, { Aid: (() => window.pixelNetworkInfo.Aid)() })
     })
 }
 
