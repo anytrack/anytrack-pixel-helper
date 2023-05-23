@@ -92,7 +92,7 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                             >
                                 <ContentCopyRoundedIcon
                                     sx={{
-                                        fontSize: '0.75rem'
+                                        fontSize: theme => theme.spacing(1.5)
                                     }}
                                 />
                             </IconButton>
@@ -120,7 +120,7 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                                 >
                                     <ArrowOutwardRoundedIcon
                                         sx={{
-                                            fontSize: '1.25rem'
+                                            fontSize: theme => theme.spacing(2.5)
                                         }}
                                     />
                                 </IconButton>

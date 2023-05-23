@@ -28,7 +28,7 @@ const SingleEventArrayValue = (props: any) => {
                 >
                     <FiberManualRecordIcon
                         sx={{
-                            fontSize: '0.5rem',
+                            fontSize: theme => theme.spacing(1),
                             color: 'text.secondary'
                         }}
                     />
@@ -64,7 +64,7 @@ const SingleEventDetail: React.FC<Props> = ({event}) => {
                                 <Typography
                                     sx={{
                                         fontSize: theme => theme.spacing(1.5),
-                                        lineHeight: '16px',
+                                        lineHeight: theme => theme.spacing(2),
                                         color: 'text.disabled',
                                         display: 'block',
                                         textTransform: 'capitalize'

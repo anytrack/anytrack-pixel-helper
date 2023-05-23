@@ -10,8 +10,8 @@ const HeaderLayout: React.FC<any> = (props) => {
                 {...props}
             />
             <Box
+                className={props.page === PopupPage.Homepage ? 'content-home-page' : 'content'}
                 sx={{
-                    maxHeight: props.page === PopupPage.Homepage ? '500px' : '470px',
                     overflowY: 'auto'
                 }}
             >

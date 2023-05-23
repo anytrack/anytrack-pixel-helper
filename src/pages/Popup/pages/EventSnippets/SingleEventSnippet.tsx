@@ -44,7 +44,7 @@ const SingleEventSnippet: React.FC<Props> = ({eventSnippet, snippetIndex}) => {
                 >
                     <CodeRoundedIcon
                         sx={{
-                            fontSize: '1rem',
+                            fontSize: theme => theme.spacing(2),
                             mr: 1,
                         }}
                     />

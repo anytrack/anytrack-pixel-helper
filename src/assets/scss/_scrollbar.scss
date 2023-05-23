@@ -1,6 +1,6 @@
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px
+  width: $scrollbar-width;
+  height: $scrollbar-height;
 }
 ::-webkit-scrollbar-track-piece {
   background-color: #8a90944a

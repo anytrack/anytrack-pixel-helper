@@ -1,15 +1,18 @@
 import * as React from 'react';
-import { ListItemText as MuiListItemText, styled } from '@mui/material';
+import {ListItemText as MuiListItemText, styled} from '@mui/material';
 
-const ListItemText = styled(MuiListItemText)(({ theme }) => ({
-    '& .MuiListItemText-primary': {
-        fontSize: 14,
-        lineHeight: '18px'
-    },
-    '& .MuiListItemText-secondary': {
-        fontSize: 13,
-        lineHeight: '18px'
-    }
-}));
+const ListItemText = styled(MuiListItemText)(({ theme }) =>
+    theme.unstable_sx({
+        '& .MuiListItemText-primary': {
+            fontSize: theme.spacing(1.75),
+            lineHeight: theme.spacing(2.25)
+        },
+        '& .MuiListItemText-secondary': {
+            fontSize: theme.spacing(1.625),
+            lineHeight: theme.spacing(2.25)
+        }
+    })
+)
+
 
 export default ListItemText;

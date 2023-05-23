@@ -40,7 +40,7 @@ const SingleEventLog: React.FC<Props> = ({event, index}) => {
                     <FiberManualRecordIcon
                         color={"primary"}
                         sx={{
-                            fontSize: '0.5rem',
+                            fontSize: theme => theme.spacing(1)
                         }}
                     />
                 </ListItemIcon>
