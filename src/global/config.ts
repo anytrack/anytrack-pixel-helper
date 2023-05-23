@@ -10,7 +10,7 @@ export enum BadgeColor {
     text='white',
 }
 
-export const BadgeMaxEvent = 99
+export const BadgeMaxEvent = 999
 
 export enum DisplayMessage {
     noScriptFound='No scripts were found on',

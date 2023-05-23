@@ -11,7 +11,7 @@ export function messageHandler () {
                 const noEvents = message.payload;
                 (async () => {
                     chrome.action.setBadgeText({
-                        text: noEvents > BadgeMaxEvent ? ';)' : noEvents.toString(),
+                        text: noEvents > BadgeMaxEvent ? `>${BadgeMaxEvent}` : noEvents.toString(),
                         tabId: sender.tab?.id
                     }).catch(console.log)
                     sendResponse({})
