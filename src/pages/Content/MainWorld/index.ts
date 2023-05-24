@@ -1,6 +1,6 @@
 import {ATCustomEvent as ATCustomEvent} from "../../../global/types/entity/ATCustomEvent"
 import {ATEvent, StandardEventName} from "../../../global/types/entity/ATEvent";
-import {AidDefaultValue} from "../../../global/config";
+import env from "../../../global/env";
 
 const getAnyTrackDataWrapper = (args: any[], defaultResult: any) => {
     try {
@@ -16,7 +16,7 @@ const getAnyTrackConfig = () => {
         document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToContentScript, {
             detail: {
                 payload: {
-                    Aid: AidDefaultValue
+                    Aid: env.AID_DEFAULT_VALUE
                 }
             }
         }));

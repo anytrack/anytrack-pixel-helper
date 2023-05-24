@@ -1,5 +1,5 @@
 import {ATMessage, ATMessageType} from "../../../global/types/entity/ATMessage";
-import {BadgeMaxEvent} from "../../../global/config"
+import env from "../../../global/env"
 import {getOrCreateGA4ClientId, sendGA4Event} from "../../../global/utils/ga4";
 
 let cacheGA4ClientId: string | undefined
@@ -11,7 +11,7 @@ export function messageHandler () {
                 const noEvents = message.payload;
                 (async () => {
                     chrome.action.setBadgeText({
-                        text: noEvents > BadgeMaxEvent ? `>${BadgeMaxEvent}` : noEvents.toString(),
+                        text: noEvents > env.BADGE_EVENT_MAX ? `>${env.BADGE_EVENT_MAX}` : noEvents.toString(),
                         tabId: sender.tab?.id
                     }).catch(console.error)
                     sendResponse({})

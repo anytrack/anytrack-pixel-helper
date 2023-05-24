@@ -1,6 +1,5 @@
 import React from 'react';
 import SubHeader from "../components/SubHeader";
-import {DisplayMessage} from "../../../global/config";
 
 const ScriptInWrongPosition = () => {
     return (
@@ -11,7 +10,7 @@ const ScriptInWrongPosition = () => {
                 fontWeight: 'normal'
             }}
         >
-            {DisplayMessage.scriptInWrongPosition}
+            Script outside the head tag detected. Please place the AnyTrack script as early as possible in the
         </SubHeader>
     )
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import SubHeader from "../../components/SubHeader";
-import {DisplayMessage} from "../../../../global/config";
 
 type Props = {
 
@@ -15,7 +14,7 @@ const ScriptNotFound: React.FC<Props> = (props) => {
                 fontWeight: 'normal'
             }}
         >
-            {`${DisplayMessage.noScriptFound} ${window.tabHostName}. Ad and tracking blockers can prevent pixel fires.`}
+            {`No scripts were found on ${window.tabHostName}. Ad and tracking blockers can prevent pixel fires.`}
         </SubHeader>
     )
 }

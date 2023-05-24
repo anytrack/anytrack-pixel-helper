@@ -1,15 +1,15 @@
-import {BadgeColor} from "../../../global/config";
-import OnInstalledReason = chrome.runtime.OnInstalledReason;
+import env from "../../../global/env";
 import {getOrCreateGA4ClientId} from "../../../global/utils/ga4";
+import OnInstalledReason = chrome.runtime.OnInstalledReason;
 
 const badgeHandler = async () => {
     try {
         await chrome.action.setBadgeBackgroundColor({
-            color: BadgeColor.background
+            color: env.BADGE_COLOR_BACKGROUND
         })
 
         await chrome.action.setBadgeTextColor({
-            color: BadgeColor.text
+            color: env.BADGE_COLOR_TEXT
         })
     } catch (e) {
         console.error(e)

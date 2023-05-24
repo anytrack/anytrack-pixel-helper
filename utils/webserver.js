@@ -6,17 +6,18 @@ process.env.ASSET_PATH = '/';
 var WebpackDevServer = require('webpack-dev-server'),
   webpack = require('webpack'),
   config = require('../webpack.config'),
-  env = require('./env'),
   path = require('path');
 
 var options = config.chromeExtensionBoilerplate || {};
 var excludeEntriesToHotReload = options.notHotReload || [];
 
+const port = process.env.PORT || 3000
+
 for (var entryName in config.entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
     config.entry[entryName] = [
       'webpack/hot/dev-server',
-      `webpack-dev-server/client?hot=true&hostname=localhost&port=${env.PORT}`,
+      `webpack-dev-server/client?hot=true&hostname=localhost&port=${port}`,
     ].concat(config.entry[entryName]);
   }
 }
@@ -35,12 +36,12 @@ var server = new WebpackDevServer(
     hot: false,
     client: false,
     host: 'localhost',
-    port: env.PORT,
+    port,
     static: {
       directory: path.join(__dirname, '../build'),
     },
     devMiddleware: {
-      publicPath: `http://localhost:${env.PORT}/`,
+      publicPath: `http://localhost:${port}/`,
       writeToDisk: true,
     },
     headers: {

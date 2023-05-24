@@ -1,10 +1,10 @@
 var webpack = require('webpack'),
     path = require('path'),
     fileSystem = require('fs-extra'),
-    env = require('./utils/env'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
-    TerserPlugin = require('terser-webpack-plugin');
+    TerserPlugin = require('terser-webpack-plugin'),
+    Dotenv = require('dotenv-webpack');
 var { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
@@ -14,7 +14,7 @@ var alias = {
 };
 
 // load the secrets
-var secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
+var secretsPath = path.join(__dirname, 'secrets.' + process.env.NODE_ENV + '.js');
 
 var fileExtensions = [
   'jpg',
@@ -107,6 +107,9 @@ var options = {
         .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
+    new Dotenv({
+      path: `./.env.${process.env.NODE_ENV}`
+    }),
     new CleanWebpackPlugin({ verbose: false }),
     new webpack.ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
@@ -171,7 +174,7 @@ var options = {
   },
 };
 
-if (env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   options.devtool = 'inline-cheap-module-source-map';
 } else {
   options.optimization = {
