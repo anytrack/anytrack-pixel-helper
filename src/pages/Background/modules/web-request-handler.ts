@@ -5,9 +5,10 @@ import {ATEvent} from "../../../global/types/entity/ATEvent";
 import env from "../../../global/env";
 import {ExtendedStore} from "reduxed-chrome-storage";
 import {addNewEventOnTab} from "../../../global/store/reducers/appSlice";
+import {getParametersFromUrl} from "../../../global/utils";
 
 const requestFilters: RequestFilter = {
-    urls: [`https://t1.anytrack.dev/assets/*/collect`],
+    urls: [`https://t1.anytrack.dev/assets/*/collect*`, `https://t1.anytrack.io/assets/*/collect*`],
     types: ['main_frame', 'sub_frame', 'stylesheet', 'script', 'image', 'font', 'object', 'xmlhttprequest', 'ping', 'csp_report', 'media', 'websocket', 'other']
 }
 
@@ -24,6 +25,20 @@ const getParsedRequestBody = (details: WebRequestBodyDetails): AssetScriptEvent 
     } catch (_) {
         return undefined
     }
+}
+
+const getRequestBodyOrPayload = (details: WebRequestBodyDetails): AssetScriptEvent | undefined => {
+    // If the method is GET, get data from payload
+    if (details.method === 'GET') {
+        const parameters = getParametersFromUrl(details.url)
+        if (!isNaN(parseInt(parameters.ts))) {
+            parameters.ts = parseInt(parameters.ts)
+        }
+        return parameters as AssetScriptEvent
+    }
+    // Otherwise, get data from request body
+    return getParsedRequestBody(details)
+
 }
 
 const convertParsedRequestBodyToATEvent = (parsedRequestBody: AssetScriptEvent): ATEvent => {
@@ -64,7 +79,7 @@ export function webRequestHandler (store: ExtendedStore) {
             if (!details) {
                 return
             }
-            const requestBody = getParsedRequestBody(details)
+            const requestBody = getRequestBodyOrPayload(details)
             if (requestBody) {
                 const event = convertParsedRequestBodyToATEvent(requestBody)
                 // @ts-ignore

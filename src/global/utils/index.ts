@@ -2,6 +2,7 @@ import { ATMessageType } from "../types/entity/ATMessage";
 import Tab = chrome.tabs.Tab;
 import env from "../env";
 import {RootState} from "../store";
+import {AssetScriptEvent} from "../types/entity/ATScriptEvent";
 
 export const getActiveTab = async (): Promise<Tab | undefined> => {
     const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
@@ -59,3 +60,8 @@ export const getATEventLogSelector = (window: Window) => ((state: RootState) => 
     const atEventLog = state.app[window.tabId] || []
     return [...atEventLog].reverse()
 })
+
+export const getParametersFromUrl = (url: string): {[key: string]: any}=> {
+    const paramsString = url.split('?')[1]
+    return Object.fromEntries(new URLSearchParams(paramsString))
+}
