@@ -12,27 +12,21 @@ declare global {
         pixelNetworkInfo: PixelNetworkInfo,
         // Whether the active tap of this popup window has been loaded (window.onload event fires)
         tabHostName: string,
+        tabId: number
     }
 }
 
 const Popup = () => {
     const [page, setPage] = React.useState<PopupPage>(PopupPage.Homepage)
-    const [ATEventLog, setATEventLog] = React.useState<ATEvent[]>([])
     const [AId, setAId] = React.useState<string | undefined>(undefined)
     const [eventSnippets, setEventSnippet] = React.useState<string[]>([])
     const [activeTabLoaded, setActiveTabLoaded] = React.useState<boolean>(false)
 
-    const getDataFromActiveTab = () => ([window.ATEventLog, window.pixelNetworkInfo, window.ATeventSnippets, window.location.hostname, window.loaded])
+    const getDataFromActiveTab = () => ([window.pixelNetworkInfo, window.ATeventSnippets, window.location.hostname, window.loaded])
 
     React.useEffect(() => {
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             switch (request.type) {
-                case ATMessageType.SendEventToPopup:
-                    setATEventLog(request.payload)
-                    sendResponse({
-                        type: ATMessageType.SendResponse
-                    })
-                    break;
                 case ATMessageType.SendActiveTabLoadedStateToPopup:
                     setActiveTabLoaded(true)
                     sendResponse({
@@ -48,21 +42,20 @@ const Popup = () => {
             const activeTab = await getActiveTab()
             if (!activeTab || !activeTab.id)
                 return;
+            window.tabId = activeTab.id
             try {
                 const result = await chrome.scripting.executeScript({
                     target: { tabId: activeTab.id },
                     func: getDataFromActiveTab
-                }) as InjectionResult<[ATEvent[], PixelNetworkInfo & {Aid: string}, string[], string, boolean | undefined]>[]
+                }) as InjectionResult<[PixelNetworkInfo & {Aid: string}, string[], string, boolean | undefined]>[]
                 if (result.length) {
                     const temp = result[0].result
-                    temp[0].reverse()
-                    setATEventLog(temp[0])
-                    const {Aid, ...rest} = temp[1]
+                    const {Aid, ...rest} = temp[0]
                     setAId(Aid)
                     window.pixelNetworkInfo = rest
-                    setEventSnippet(temp[2])
-                    window.tabHostName = temp[3]
-                    setActiveTabLoaded(temp[4] || false)
+                    setEventSnippet(temp[1])
+                    window.tabHostName = temp[2]
+                    setActiveTabLoaded(temp[3] || false)
                 }
             } catch (_) {}
         })();
@@ -82,7 +75,6 @@ const Popup = () => {
         <PageRouter
             page={page}
             setPage={setPage}
-            ATEventLog={ATEventLog}
             eventSnippets={eventSnippets}
             activeTabLoaded={activeTabLoaded}
             AId={AId}

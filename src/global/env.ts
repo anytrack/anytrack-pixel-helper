@@ -8,7 +8,8 @@ const env = {
     BADGE_COLOR_TEXT: process.env.BADGE_COLOR_TEXT || 'white',
     BADGE_EVENT_MAX: parseInt(process.env.BADGE_EVENT_MAX || '') || 999,
 
-    AID_DEFAULT_VALUE: process.env.AID_DEFAULT_VALUE
+    DEFAULT_VALUE_AID: process.env.DEFAULT_VALUE_AID,
+    DEFAULT_VALUE_AT_EVENT_ATTRIBUTE: process.env.DEFAULT_VALUE_AT_EVENT_ATTRIBUTE || 'Not set' as string
 }
 
 export default env

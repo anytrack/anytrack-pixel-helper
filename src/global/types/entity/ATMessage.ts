@@ -1,8 +1,7 @@
 export enum ATMessageType {
-    SendEventToPopup='SendEventToPopup',
     SendActiveTabLoadedStateToPopup='SendActiveTabLoadedStateToPopup',
-    SendAnyTrackIdToBackground='SendAnyTrackIdToBackground',
-    SendEventToServiceWorker='SendEventToServiceWorker',
+    SendAnyTrackIdToServiceWorker='SendAnyTrackIdToServiceWorker',
+    SendRequestToResetEventToServiceWorker='SendRequestToResetEventToServiceWorker',
     SendResponse='SendResponse',
     SendGA4Event='SendGA4Event'
 }

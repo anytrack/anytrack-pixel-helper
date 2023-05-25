@@ -30,13 +30,10 @@ function main () {
     if (!chrome.runtime)
         return
 
-    document.addEventListener(ATCustomEvent.SendAnyTrackEventToContentScript, async function (e: any) {
-        if (e.detail !== undefined && e.detail.payload !== undefined) {
-            window.ATEventLog.push(e.detail.payload)
-            await notify(ATMessageType.SendEventToServiceWorker, window.ATEventLog.length)
-            await notify(ATMessageType.SendEventToPopup, window.ATEventLog)
-        }
-    })
+    // Reset pixel of active tab everytime page is loaded
+    chrome.runtime.sendMessage({
+        type: ATMessageType.SendRequestToResetEventToServiceWorker
+    }).catch(console.error)
 
     document.addEventListener(ATCustomEvent.SendPixelNetworkToContentScript, async function (e: any) {
         if (e.detail !== undefined && e.detail.payload !== undefined) {
@@ -53,7 +50,7 @@ function main () {
         await notify(ATMessageType.SendActiveTabLoadedStateToPopup)
 
         // Notify to background to change popup icon.
-        await notify(ATMessageType.SendAnyTrackIdToBackground, { Aid: (() => window.pixelNetworkInfo.Aid)() })
+        await notify(ATMessageType.SendAnyTrackIdToServiceWorker, { Aid: (() => window.pixelNetworkInfo.Aid)() })
     })
 }
 

@@ -16,7 +16,7 @@ const getAnyTrackConfig = () => {
         document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToContentScript, {
             detail: {
                 payload: {
-                    Aid: env.AID_DEFAULT_VALUE
+                    Aid: env.DEFAULT_VALUE_AID
                 }
             }
         }));

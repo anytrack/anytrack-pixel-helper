@@ -1,22 +1,14 @@
 import {ATMessage, ATMessageType} from "../../../global/types/entity/ATMessage";
 import env from "../../../global/env"
 import {getOrCreateGA4ClientId, sendGA4Event} from "../../../global/utils/ga4";
+import {ExtendedStore} from "reduxed-chrome-storage";
+import {resetEventOnTab} from "../../../global/store/reducers/appSlice";
 
 let cacheGA4ClientId: string | undefined
 
-export function messageHandler () {
+export function messageHandler (store: ExtendedStore) {
     chrome.runtime.onMessage.addListener(function(message: ATMessage, sender, sendResponse) {
         switch (message.type) {
-            case ATMessageType.SendEventToServiceWorker:
-                const noEvents = message.payload;
-                (async () => {
-                    chrome.action.setBadgeText({
-                        text: noEvents > env.BADGE_EVENT_MAX ? `>${env.BADGE_EVENT_MAX}` : noEvents.toString(),
-                        tabId: sender.tab?.id
-                    }).catch(console.error)
-                    sendResponse({})
-                })()
-                break;
             case ATMessageType.SendGA4Event:
                 const params = message.payload;
                 (async () => {
@@ -29,6 +21,11 @@ export function messageHandler () {
                     }
                     sendResponse()
                 })();
+                break;
+            case ATMessageType.SendRequestToResetEventToServiceWorker:
+                // @ts-ignore
+                store.dispatch(resetEventOnTab(sender.tab?.id))
+                sendResponse()
                 break;
             default:
         }

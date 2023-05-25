@@ -9,7 +9,6 @@ import ScriptNotFound from "./ScriptNotFound";
 import {anyTrackNotInstalled} from "../../../global/utils";
 
 type Props = {
-    ATEventLog: ATEvent[],
     eventSnippets: string[],
     page: PopupPage
     setPage: React.Dispatch<PopupPage>,

@@ -1,13 +1,14 @@
 import { ATMessageType } from "../types/entity/ATMessage";
 import Tab = chrome.tabs.Tab;
+import env from "../env";
+import {RootState} from "../store";
 
 export const getActiveTab = async (): Promise<Tab | undefined> => {
     const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
     return tab
 }
 
-export const displayedValue = (value: any) =>  [null, undefined].includes(value) ? 'Not set' :
-    typeof value === 'string' ? value : JSON.stringify(value)
+export const displayedValue = (value: any) => typeof value === 'string' ? value : JSON.stringify(value)
 
 export const formatDate = (dateString: string) => new Date(dateString).toLocaleString().replace(/\//g,'-')
 
@@ -46,3 +47,15 @@ export const notify = async (type: ATMessageType, payload?: any) => {
         console.error(_)
     }
 }
+
+export const setBadgeTextByTabId = (noEvents: number, tabId: number) => {
+    chrome.action.setBadgeText({
+        text: noEvents > env.BADGE_EVENT_MAX ? `>${env.BADGE_EVENT_MAX}` : !noEvents ? '' : noEvents.toString(),
+        tabId
+    }).catch(console.error)
+}
+
+export const getATEventLogSelector = (window: Window) => ((state: RootState) => {
+    const atEventLog = state.app[window.tabId] || []
+    return [...atEventLog].reverse()
+})

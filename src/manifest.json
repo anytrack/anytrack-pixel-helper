@@ -12,6 +12,7 @@
     "128": "src/assets/img/logo-square.png"
   },
   "permissions": [
+    "webRequest",
     "scripting",
     "storage",
     "action"

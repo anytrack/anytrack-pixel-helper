@@ -1,5 +1,7 @@
 import InjectionResult = chrome.scripting.InjectionResult;
 import {ATMessageType} from "../../../global/types/entity/ATMessage";
+import {ExtendedStore} from "reduxed-chrome-storage";
+import {resetEventOnTab} from "../../../global/store/reducers/appSlice";
 
 const getDataFromActiveTab = () => ([window.pixelNetworkInfo, window.loaded])
 
@@ -27,7 +29,7 @@ const handler = async (tabId: number) => {
 export const tabChangeHandler = () => {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         switch (request.type) {
-            case ATMessageType.SendAnyTrackIdToBackground:
+            case ATMessageType.SendAnyTrackIdToServiceWorker:
                 const { Aid } = request.payload
                 if (Aid === undefined)
                     chrome.action.setIcon({
@@ -45,4 +47,5 @@ export const tabChangeHandler = () => {
     chrome.tabs.onActivated.addListener(async function(activeInfo) {
         await handler(activeInfo.tabId)
     })
+
 }

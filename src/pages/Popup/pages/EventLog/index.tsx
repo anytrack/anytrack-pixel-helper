@@ -2,15 +2,15 @@ import React from 'react';
 import {Box, IconButton, Link, List, Paper, Tooltip, Typography} from "@mui/material";
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
-import {ATEvent} from '../../../../global/types/entity/ATEvent';
 import SingleEventLog from './SingleEventLog';
 import SubHeader from "../../components/SubHeader";
 import ScriptInWrongPosition from "../../components/ScriptInWrongPosition";
-import { getPixelScripts } from '../../../../global/utils/pixelNetwork';
+import {getPixelScripts} from '../../../../global/utils/pixelNetwork';
 import {grey} from "@mui/material/colors";
+import {useAppSelector} from "../../../../global/store/hook";
+import {getATEventLogSelector} from "../../../../global/utils";
 
 type Props = {
-    ATEventLog: ATEvent[],
     AId: string | undefined
 }
 
@@ -46,7 +46,9 @@ const EmptyEventsPlaceHolder = () => {
     )
 }
 
-const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
+const EventLog: React.FC<Props> = ({AId}) => {
+    const atEventLog = useAppSelector(getATEventLogSelector(window))
+
     const handleIconClick = () => {
         window.open(`https://dashboard.anytrack.io/asset/settings?aid=${AId}`)
     }
@@ -55,7 +57,7 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
             sx={{
                 width: '100%',
                 bgcolor: 'background.paper', mt: 0.5, px: 0.5,
-                pb: !ATEventLog.length ? 0 : 1
+                pb: !atEventLog.length ? 0 : 1
             }}
             dense
             subheader={
@@ -130,8 +132,8 @@ const EventLog: React.FC<Props> = ({ATEventLog, AId}) => {
                 </Box>
             }
         >
-            {!ATEventLog.length ? <EmptyEventsPlaceHolder/> :
-                ATEventLog.map((event, index) => {
+            {!atEventLog.length ? <EmptyEventsPlaceHolder/> :
+                atEventLog.map((event, index) => {
                     return <SingleEventLog event={event} key={event.eventId} index={index}/>
                 })}
         </List>
