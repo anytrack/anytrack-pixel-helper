@@ -4,13 +4,14 @@ import {
 import { configureStore } from '@reduxjs/toolkit';
 import reducer from './reducers';
 import logger from 'redux-logger'
+import env from "../env";
 
 const storeCreatorContainer = (preloadedState?: any) =>
     configureStore({
         reducer,
         preloadedState,
         middleware: (getDefaultMiddleware) => {
-            if (process.env.NODE_ENV === 'development') {
+            if (env.NODE_ENV === 'development') {
                 return getDefaultMiddleware().concat(logger)
             }
             return getDefaultMiddleware()
