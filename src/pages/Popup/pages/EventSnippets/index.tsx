@@ -8,6 +8,7 @@ type Props = {
 }
 
 const EventSnippets: React.FC<Props> = ({ eventSnippets}) => {
+    const subHeader = `${!eventSnippets.length ? 'No snippets found': 'Snippets'} on ${window.tabHostName}`
     return (
         <>
             <SubHeader
@@ -15,7 +16,7 @@ const EventSnippets: React.FC<Props> = ({ eventSnippets}) => {
                     ml: 1.5
                 }}
             >
-                {`Snippets on ${window.tabHostName}`}
+                {subHeader}
             </SubHeader>
             <Stack
                 sx={{
