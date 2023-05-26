@@ -57,12 +57,12 @@ This boilerplate now supports TypeScript! The `Options` Page is implemented usin
 
 ## Webpack auto-reload and HRM
 
-To make your workflow much more efficient this boilerplate uses the [webpack server](https://webpack.github.io/docs/webpack-dev-server.html) to development (started with `npm start`) with auto reload feature that reloads the browser automatically every time that you save some file in your editor.
+To make your workflow much more efficient this boilerplate uses the [webpack server](https://webpack.github.io/docs/webpack-dev-server.html) to development (started with `yarn start`) with auto reload feature that reloads the browser automatically every time that you save some file in your editor.
 
 You can run the dev mode on other port if you want. Just specify the env var `port` like this:
 
 ```
-$ PORT=6002 npm run start
+$ PORT=6002 yarn run start
 ```
 
 ## Content Scripts
@@ -106,7 +106,7 @@ Thanks to [@hudidit](https://github.com/lxieyang/chrome-extension-boilerplate-re
 After the development of your extension run the command
 
 ```
-$ NODE_ENV=production npm run build
+$ yarn run build
 ```
 
 Now, the content of `build` folder will be the extension ready to be submitted to the Chrome Web Store. Just take a look at the [official guide](https://developer.chrome.com/webstore/publish) to more infos about publishing.
