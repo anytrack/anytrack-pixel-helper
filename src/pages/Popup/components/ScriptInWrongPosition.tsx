@@ -1,17 +1,19 @@
 import React from 'react';
-import SubHeader from "../components/SubHeader";
+import {Alert} from "@mui/material";
 
 const ScriptInWrongPosition = () => {
     return (
-        <SubHeader
+        <Alert
+            severity={"warning"}
+            variant={"outlined"}
             sx={{
-                pl: 1.5,
-                pt: 1.5,
-                fontWeight: 'normal'
+                fontSize: theme => theme.spacing(1.75),
+                lineHeight: theme => theme.spacing(2.5),
+                px: 1,
             }}
         >
             Script outside the head tag detected. Please place the AnyTrack script as early as possible in the
-        </SubHeader>
+        </Alert>
     )
 }
 
