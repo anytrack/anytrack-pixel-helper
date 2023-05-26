@@ -4,6 +4,7 @@ import React from 'react';
 import {ATEvent} from "../../../../global/types/entity/ATEvent";
 import {displayedValue} from "../../../../global/utils";
 import SingleEventValueText from "../../components/SingleEventValueText";
+import env from "../../../../global/env";
 
 type Props = {
     event: ATEvent
@@ -15,7 +16,8 @@ const displayedAttributes = ['target', 'eventId', 'clickId', 'clientId', 'eventV
 const SingleEventArrayValue = (props: any) => {
     const {arrayValue} = props;
     return <List>
-        {arrayValue.map((value: any, index: number) =>
+        {arrayValue
+            .map((value: any, index: number) =>
             <ListItemButton
                 sx={{
                     px: 0
@@ -51,7 +53,7 @@ const SingleEventDetail: React.FC<Props> = ({event}) => {
         <>
             {
                 Object.keys(event)
-                    .filter(attr => displayedAttributes.includes(attr))
+                    .filter(attr => displayedAttributes.includes(attr) && event[attr] !== env.DEFAULT_VALUE_AT_EVENT_ATTRIBUTE)
                     .map((key: string) => {
                         const value = event[key as keyof ATEvent]
                         return (
