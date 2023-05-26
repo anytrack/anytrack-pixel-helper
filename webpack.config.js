@@ -4,8 +4,7 @@ var webpack = require('webpack'),
     fileSystem = require('fs-extra'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
-    TerserPlugin = require('terser-webpack-plugin'),
-    Dotenv = require('dotenv-webpack');
+    TerserPlugin = require('terser-webpack-plugin');
 var { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
@@ -115,9 +114,6 @@ var options = {
         .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
-    /*new Dotenv({
-      path: `./.env.${process.env.NODE_ENV}`
-    }),*/
     new webpack.DefinePlugin(envKeys),
     new CleanWebpackPlugin({ verbose: false }),
     new webpack.ProgressPlugin(),
