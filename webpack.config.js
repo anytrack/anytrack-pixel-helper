@@ -1,5 +1,6 @@
 var webpack = require('webpack'),
     path = require('path'),
+    dotenv = require('dotenv'),
     fileSystem = require('fs-extra'),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
@@ -32,6 +33,13 @@ var fileExtensions = [
 if (fileSystem.existsSync(secretsPath)) {
   alias['secrets'] = secretsPath;
 }
+
+const envPath = path.join(__dirname, `.env.${process.env.NODE_ENV}`)
+const envFile = dotenv.config({ path: envPath }).parsed;
+const envKeys = Object.keys(envFile).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(envFile[next]);
+  return prev;
+}, {});
 
 var options = {
   mode: process.env.NODE_ENV || 'development',
@@ -107,9 +115,10 @@ var options = {
         .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
-    new Dotenv({
+    /*new Dotenv({
       path: `./.env.${process.env.NODE_ENV}`
-    }),
+    }),*/
+    new webpack.DefinePlugin(envKeys),
     new CleanWebpackPlugin({ verbose: false }),
     new webpack.ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
