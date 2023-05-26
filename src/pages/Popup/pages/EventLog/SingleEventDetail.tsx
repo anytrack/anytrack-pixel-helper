@@ -53,7 +53,7 @@ const SingleEventDetail: React.FC<Props> = ({event}) => {
         <>
             {
                 Object.keys(event)
-                    .filter(attr => displayedAttributes.includes(attr) && event[attr] !== env.DEFAULT_VALUE_AT_EVENT_ATTRIBUTE)
+                    .filter(attr => displayedAttributes.includes(attr) && event[attr as keyof ATEvent] !== env.DEFAULT_VALUE_AT_EVENT_ATTRIBUTE)
                     .map((key: string) => {
                         const value = event[key as keyof ATEvent]
                         return (

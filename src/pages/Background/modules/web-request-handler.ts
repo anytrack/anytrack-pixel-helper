@@ -41,9 +41,9 @@ const getRequestBodyOrPayload = (details: WebRequestBodyDetails): AssetScriptEve
 
 }
 
-const convertParsedRequestBodyToATEvent = (parsedRequestBody: AssetScriptEvent): ATEvent => {
-    const getValueForAttributeWrapper = (attr: keyof AssetScriptEvent): string => {
-        return parsedRequestBody[attr] === undefined ? env.DEFAULT_VALUE_AT_EVENT_ATTRIBUTE : parsedRequestBody[attr] as string
+const convertParsedRequestBodyToATEvent = (parsedRequestBody: AssetScriptEvent): Partial<ATEvent> => {
+    const getValueForAttributeWrapper = (attr: keyof AssetScriptEvent): any => {
+        return parsedRequestBody[attr] === undefined ? env.DEFAULT_VALUE_AT_EVENT_ATTRIBUTE : parsedRequestBody[attr]
     }
 
     const mapAttributeFromATScriptEventToATEvent: Record<keyof ATEvent, keyof AssetScriptEvent> = {
@@ -59,9 +59,10 @@ const convertParsedRequestBodyToATEvent = (parsedRequestBody: AssetScriptEvent):
         transactionId: 'ti',
         shippingPrice: 'sp',
         taxPrice: 'tp',
+        items: 'ei'
     }
 
-    const result: ATEvent = {...mapAttributeFromATScriptEventToATEvent}
+    const result: Partial<ATEvent> = {}
     Object.keys(mapAttributeFromATScriptEventToATEvent)
         .forEach((attr) => {
             const _attr = attr as keyof ATEvent
