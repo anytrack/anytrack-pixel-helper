@@ -34,6 +34,11 @@ if (fileSystem.existsSync(secretsPath)) {
 }
 
 const envPath = path.join(__dirname, `.env.${process.env.NODE_ENV}`)
+if (!fileSystem.existsSync(envPath)) {
+  console.error(`NODE_ENV: ${process.env.NODE_ENV}`)
+  console.error(`Please prepare an .env file in the root directory: .env.${process.env.NODE_ENV}`)
+  process.exit()
+}
 const envFile = dotenv.config({ path: envPath }).parsed;
 const envKeys = Object.keys(envFile).reduce((prev, next) => {
   prev[`process.env.${next}`] = JSON.stringify(envFile[next]);
