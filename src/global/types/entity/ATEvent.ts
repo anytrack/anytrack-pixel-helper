@@ -1,8 +1,5 @@
 export interface ATEvent {
-    target: string,
     eventId: string,
-    atclid: string,
-    clickId: string,
     clientId: string,
     eventName: string,
     eventTime: string,

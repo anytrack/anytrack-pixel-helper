@@ -47,10 +47,7 @@ const convertParsedRequestBodyToATEvent = (parsedRequestBody: AssetScriptEvent):
     }
 
     const mapAttributeFromATScriptEventToATEvent: Record<keyof ATEvent, keyof AssetScriptEvent> = {
-        target: 'id',
         eventId: 'id',
-        atclid: 'cid',
-        clickId: 'cid',
         clientId: 'cid',
         eventName: 'en',
         eventTime: 'ts',
