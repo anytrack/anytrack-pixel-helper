@@ -50,7 +50,7 @@ const EventLog: React.FC<Props> = ({AId}) => {
     const atEventLog = useAppSelector(getATEventLogSelector(window))
 
     const handleIconClick = () => {
-        window.open(`https://dashboard.anytrack.io/asset/settings?aid=${AId}`)
+        window.open(`https://dashboard.anytrack.io/?aid=${AId}`)
     }
     return (
         <List
@@ -115,7 +115,7 @@ const EventLog: React.FC<Props> = ({AId}) => {
                                     className={"header__link"}
                                     underline={"none"}
                                 >
-                                    Open in
+                                    Open
                                 </Link>
                                 <IconButton
                                     color="primary"
