@@ -8,7 +8,7 @@ import {addNewEventOnTab} from "../../../global/store/reducers/appSlice";
 import {getParametersFromUrl} from "../../../global/utils";
 
 const requestFilters: RequestFilter = {
-    urls: [`https://t1.anytrack.dev/assets/*/collect*`, `https://t1.anytrack.io/assets/*/collect*`],
+    urls: env.URL_PATTERNS,
     types: ['main_frame', 'sub_frame', 'stylesheet', 'script', 'image', 'font', 'object', 'xmlhttprequest', 'ping', 'csp_report', 'media', 'websocket', 'other']
 }
 
@@ -82,7 +82,6 @@ export function webRequestHandler (store: ExtendedStore) {
                 // @ts-ignore
                 store.dispatch(addNewEventOnTab({event, tabId: details.tabId}))
             }
-            console.log(details)
         },
         requestFilters,
         ['requestBody']
