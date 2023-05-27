@@ -35,13 +35,17 @@ function main () {
         type: ATMessageType.SendRequestToResetEventToServiceWorker
     }).catch(console.error)
 
-    document.addEventListener(ATCustomEvent.SendPixelNetworkToContentScript, async function (e: any) {
+    // Listen to events from Main world script, forwards that to service worker or popup for further handlers
+    document.addEventListener(ATCustomEvent.SendPixelNetworkToIsolatedWorldScript, async function (e: any) {
         if (e.detail !== undefined && e.detail.payload !== undefined) {
             window.pixelNetworkInfo = {...window.pixelNetworkInfo, ...e.detail.payload}
             await notify(ATMessageType.SendActiveTabLoadedStateToPopup)
+
         }
     })
 
+
+    // Forward to service worker or popup for further handlers
     window.addEventListener('load', async function() {
         window.ATeventSnippets = getEventSnippets()
         window.pixelNetworkInfo.scriptInfo = getScriptInfo()

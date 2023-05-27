@@ -13,7 +13,8 @@ const getAnyTrackDataWrapper = (args: any[], defaultResult: any) => {
 const getAnyTrackConfig = () => {
     if (!AnyTrack('aid')) {
         // Handle case when AnyTrack is available, but AnyTrack('aid') is still undefined
-        document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToContentScript, {
+        // This action signifies that AnyTrack exists in the current site
+        document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToIsolatedWorldScript, {
             detail: {
                 payload: {
                     Aid: env.DEFAULT_VALUE_AID
@@ -23,7 +24,7 @@ const getAnyTrackConfig = () => {
         waitUntilAvailable(getAnyTrackConfig, () => AnyTrack('aid') !== undefined)
         return;
     }
-    document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToContentScript, {
+    document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToIsolatedWorldScript, {
         detail: {
             payload: {
                 Aid: AnyTrack('aid'),
@@ -41,7 +42,7 @@ const anyTrackEventHandler = () => {
                 'bind',
                 eventName,
                 function (e: ATEvent) {
-                    document.dispatchEvent(new CustomEvent(ATCustomEvent.SendAnyTrackEventToContentScript, {
+                    document.dispatchEvent(new CustomEvent(ATCustomEvent.SendAnyTrackEventToIsolatedWorldScript, {
                         detail: {
                             payload: e
                         }
@@ -52,7 +53,7 @@ const anyTrackEventHandler = () => {
 }
 
 const gtmHandler = () => {
-    document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToContentScript, {
+    document.dispatchEvent(new CustomEvent(ATCustomEvent.SendPixelNetworkToIsolatedWorldScript, {
         detail: {
             payload: {
                 gtm: Object.keys(window.google_tag_manager)

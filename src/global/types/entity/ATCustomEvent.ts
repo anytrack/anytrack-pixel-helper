@@ -1,4 +1,4 @@
 export enum ATCustomEvent {
-    SendAnyTrackEventToContentScript='SendAnyTrackEventToContentScript',
-    SendPixelNetworkToContentScript='SendPixelNetworkToContentScript'
+    SendAnyTrackEventToIsolatedWorldScript='SendAnyTrackEventToIsolatedWorldScript',
+    SendPixelNetworkToIsolatedWorldScript='SendPixelNetworkToIsolatedWorldScript'
 }
