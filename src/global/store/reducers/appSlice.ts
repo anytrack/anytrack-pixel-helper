@@ -17,6 +17,13 @@ export const appSlice = createSlice({
       // Hook
       setBadgeTextByTabId(0, tabId)
     },
+    removeTabData: (state: Draft<AppState>, action: PayloadAction<number>) => {
+      const tabId = action.payload
+      delete state[tabId]
+    },
+    resetAppState: () => {
+      return initialState
+    },
     addNewEventOnTab: (state: Draft<AppState>, action: PayloadAction<{event: ATEvent, tabId: number}>) => {
       const {event, tabId} = action.payload
       if (!state[tabId]) {
@@ -32,6 +39,6 @@ export const appSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addNewEventOnTab, resetEventOnTab} = appSlice.actions
+export const { addNewEventOnTab, resetEventOnTab, removeTabData, resetAppState} = appSlice.actions
 
 export default appSlice.reducer

@@ -6,11 +6,11 @@ import {instantiateGlobalStore} from "../../global/store";
 
 (async () => {
     await bootstrap()
-})()
+})();
 
-tabChangeHandler();
 (async () => {
     const store = await instantiateGlobalStore();
     webRequestHandler(store)
     messageHandler(store);
+    tabChangeHandler(store);
 })()

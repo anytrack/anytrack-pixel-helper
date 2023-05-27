@@ -1,6 +1,8 @@
 import InjectionResult = chrome.scripting.InjectionResult;
 import {ATMessageType} from "../../../global/types/entity/ATMessage";
 import {setPopupIcon} from "../../../global/utils";
+import {ExtendedStore} from "reduxed-chrome-storage";
+import {removeTabData} from "../../../global/store/reducers/appSlice";
 
 const getDataFromActiveTab = () => ([window.pixelNetworkInfo, window.loaded])
 
@@ -22,7 +24,7 @@ const handler = async (tabId: number) => {
     } catch (_) {}
 }
 
-export const tabChangeHandler = () => {
+export const tabChangeHandler = (store: ExtendedStore) => {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         switch (request.type) {
             case ATMessageType.SendAnyTrackIdToServiceWorker:
@@ -41,4 +43,8 @@ export const tabChangeHandler = () => {
         await handler(activeInfo.tabId)
     })
 
+    chrome.tabs.onRemoved.addListener(function(tabId) {
+        // @ts-ignore
+        store.dispatch(removeTabData(tabId))
+    })
 }
