@@ -15,7 +15,6 @@ type Props = {
 }
 
 const isAnyTrackScriptInHead = () => {
-    return false;
     const anyTrackInitScript = getPixelScripts(window)
         .find(script => typeof script.src === 'string' && script.src.startsWith(`https://assets.anytrack.dev/scripts/v0/`))
     // This function only run when anyTrackNotInstalled function returns false, thus there exists anyTrack script

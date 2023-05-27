@@ -1,6 +1,6 @@
 import {createSlice, Draft, PayloadAction} from '@reduxjs/toolkit'
 import {ATEvent} from "../../types/entity/ATEvent";
-import {setBadgeTextByTabId} from "../../utils";
+import {setBadgeTextByTabId, setPopupIcon} from "../../utils";
 
 
 type AppState = {[key: string]: ATEvent[]}
@@ -14,6 +14,7 @@ export const appSlice = createSlice({
     resetEventOnTab: (state: Draft<AppState>, action: PayloadAction<number>) => {
       const tabId = action.payload
       state[tabId] = []
+      // Hook
       setBadgeTextByTabId(0, tabId)
     },
     addNewEventOnTab: (state: Draft<AppState>, action: PayloadAction<{event: ATEvent, tabId: number}>) => {
@@ -22,7 +23,10 @@ export const appSlice = createSlice({
         state[tabId] = []
       }
       state[tabId].push(event)
+
+      // Hooks
       setBadgeTextByTabId(state[tabId].length, tabId)
+      setPopupIcon(tabId)
     }
   }
 })

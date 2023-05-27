@@ -1,7 +1,6 @@
 import InjectionResult = chrome.scripting.InjectionResult;
 import {ATMessageType} from "../../../global/types/entity/ATMessage";
-import {ExtendedStore} from "reduxed-chrome-storage";
-import {resetEventOnTab} from "../../../global/store/reducers/appSlice";
+import {setPopupIcon} from "../../../global/utils";
 
 const getDataFromActiveTab = () => ([window.pixelNetworkInfo, window.loaded])
 
@@ -15,11 +14,8 @@ const handler = async (tabId: number) => {
             const temp = result[0].result
             const {Aid} = temp[0]
             const activeTabLoaded = temp[1]
-            if (activeTabLoaded && Aid === undefined) {
-                chrome.action.setIcon({
-                    tabId,
-                    path: "logo-square-grey-128.png",
-                })
+            if (activeTabLoaded && Aid !== undefined) {
+                setPopupIcon(tabId)
             }
 
         }
@@ -31,11 +27,8 @@ export const tabChangeHandler = () => {
         switch (request.type) {
             case ATMessageType.SendAnyTrackIdToServiceWorker:
                 const { Aid } = request.payload
-                if (Aid === undefined)
-                    chrome.action.setIcon({
-                        tabId: sender.tab?.id,
-                        path: "logo-square-grey-128.png",
-                    }).catch(console.error)
+                if (Aid !== undefined)
+                    setPopupIcon(sender.tab?.id)
                 break;
             default:
         }

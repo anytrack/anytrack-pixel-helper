@@ -41,6 +41,9 @@ function main () {
             window.pixelNetworkInfo = {...window.pixelNetworkInfo, ...e.detail.payload}
             await notify(ATMessageType.SendActiveTabLoadedStateToPopup)
 
+            if (window.pixelNetworkInfo.Aid !== undefined) {
+                await notify(ATMessageType.SendAnyTrackIdToServiceWorker, {Aid: window.pixelNetworkInfo.Aid })
+            }
         }
     })
 
@@ -54,7 +57,9 @@ function main () {
         await notify(ATMessageType.SendActiveTabLoadedStateToPopup)
 
         // Notify to background to change popup icon.
-        await notify(ATMessageType.SendAnyTrackIdToServiceWorker, { Aid: (() => window.pixelNetworkInfo.Aid)() })
+        if (window.pixelNetworkInfo.Aid !== undefined) {
+            await notify(ATMessageType.SendAnyTrackIdToServiceWorker, {Aid: window.pixelNetworkInfo.Aid })
+        }
     })
 }
 

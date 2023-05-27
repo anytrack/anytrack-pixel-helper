@@ -6,7 +6,7 @@
   "background": { "service_worker": "background.bundle.js" },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "src/assets/img/logo-square.png"
+    "default_icon": "src/assets/img/logo-square-grey.png"
   },
   "icons": {
     "128": "src/assets/img/logo-square.png"

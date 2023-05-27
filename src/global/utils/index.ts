@@ -33,7 +33,6 @@ export const getHostname = (url: string): string | null => {
     }
 }
 
-// TODO: handle pending state when the page is loading
 export const anyTrackNotInstalled = (activeTabLoaded: boolean, AId: string | undefined) => {
     return activeTabLoaded && AId === undefined
 }
@@ -56,6 +55,15 @@ export const setBadgeTextByTabId = (noEvents: number, tabId: number) => {
     }).catch(console.error)
 }
 
+export const setPopupIcon = (tabId: number | undefined, iconPath = 'logo-square-128.png') => {
+    if (tabId === undefined)
+        return
+    chrome.action.setIcon({
+        tabId,
+        path: iconPath
+    }).catch(console.error)
+}
+
 export const getATEventLogSelector = (window: Window) => ((state: RootState) => {
     const atEventLog = state.app[window.tabId] || []
     return [...atEventLog].reverse()
@@ -65,3 +73,4 @@ export const getParametersFromUrl = (url: string): {[key: string]: any}=> {
     const paramsString = url.split('?')[1]
     return Object.fromEntries(new URLSearchParams(paramsString))
 }
+
