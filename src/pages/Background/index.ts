@@ -1,7 +1,7 @@
 import {bootstrap} from "./modules/bootstrap";
-import {messageHandler} from "./modules/message-handler";
-import {tabChangeHandler} from "./modules/tab-change-handler";
-import {webRequestHandler} from "./modules/web-request-handler";
+import {messageHandler} from "./modules/messageHandler";
+import {tabChangeHandler} from "./modules/tabChangeHandler";
+import {webRequestHandler} from "./modules/webRequestHandler";
 import {instantiateGlobalStore} from "../../global/store";
 
 (async () => {
