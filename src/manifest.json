@@ -14,8 +14,7 @@
   "permissions": [
     "webRequest",
     "scripting",
-    "storage",
-    "action"
+    "storage"
   ],
   "host_permissions": [
     "<all_urls>"

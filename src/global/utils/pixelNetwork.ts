@@ -1,6 +1,5 @@
 import {PixelNetwork, PixelNetworkConfig, PixelNetworkInfo, ScriptInitiator} from "../types/entity/PixelNetwork";
 import {getHostname} from "./index";
-import pixelNetworks from "../../pages/Popup/pages/PixelNetworks";
 
 export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
     [PixelNetwork.None]: {
