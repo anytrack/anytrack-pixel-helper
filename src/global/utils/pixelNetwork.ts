@@ -15,12 +15,19 @@ export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
         displayName: 'Outbrain'
     },
     [PixelNetwork.UniversalAnalytics]: {
-        hostname: ['www.google-analytics.com'],
-        displayName: 'Google Analytics'
+        hostname: ['www.googletagmanager.com'],
+        additionalCondition: (scriptSrc: string) => scriptSrc.match(/gtag\/js\?id=UA-/) !== null,
+        displayName: 'UA'
     },
     [PixelNetwork.GA4]: {
-        hostname: ['www.google-analytics.com', 'analytics.google.com'],
-            displayName: 'GA4 Pixel'
+        hostname: ['www.googletagmanager.com'],
+        additionalCondition: (scriptSrc: string) => scriptSrc.match(/gtag\/js\?id=G-/) !== null,
+        displayName: 'GA4'
+    },
+    [PixelNetwork.GoogleAds]: {
+        hostname: ['www.googletagmanager.com'],
+        additionalCondition: (scriptSrc: string) => scriptSrc.match(/gtag\/js\?id=AW-/) !== null,
+        displayName: 'Google Ads'
     },
     [PixelNetwork.Facebook]: {
         hostname: ['www.facebook.com'],
@@ -37,17 +44,11 @@ export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
     [PixelNetwork.Bing]: {
         hostname: ['bat.bing.com'],
         displayName: 'Bing'
-    },
-    [PixelNetwork.GoogleAds]: {
-        hostname: ['googleads.g.doubleclick.net'],
-        displayName: 'Google Ads'
-    },
+    }
 }
-
 export const identifyPixelNetworkFromScript = (scriptInfo: {[key: string]: any}): PixelNetwork => {
     if (!scriptInfo.src)
         return PixelNetwork.None
-
     const hostname = getHostname(scriptInfo.src)
     if (!hostname)
         return PixelNetwork.None
@@ -55,9 +56,19 @@ export const identifyPixelNetworkFromScript = (scriptInfo: {[key: string]: any})
     return <PixelNetwork>Object.keys(PIXEL_NETWORK_CONFIG)
         .find((key: any) => {
             const hostnamesOfPixelNetwork: string[] = PIXEL_NETWORK_CONFIG[key as PixelNetwork].hostname
-            return hostnamesOfPixelNetwork.includes(hostname)
+            const additionalCondition = PIXEL_NETWORK_CONFIG[key as PixelNetwork].additionalCondition
+
+            let result = hostnamesOfPixelNetwork.includes(hostname)
+            if (!result ||  additionalCondition === undefined) {
+                return result;
+            }
+            if (!additionalCondition(scriptInfo.src)) {
+                return false
+            }
+            return true
         }) || PixelNetwork.Other
 }
+
 
 export const identifyScriptInitiatorFromScript = (scriptInfo: {[key: string]: any}, pixelNetworkInfo: PixelNetworkInfo): ScriptInitiator => {
     const pixelNetwork = identifyPixelNetworkFromScript(scriptInfo)
