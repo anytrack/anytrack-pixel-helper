@@ -74,7 +74,7 @@ const Header: React.FC<Props> = (props) => {
                         display: 'block'
                     }}
                 >
-                    {`Pixel Installs: ${getPixelScripts(window).length}`}
+                    {`Pixels found: ${getPixelScripts(window).length}`}
                 </Link>
                 <Link
                     component="button"
