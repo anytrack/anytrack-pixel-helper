@@ -4,7 +4,8 @@ import { Typography, styled } from '@mui/material';
 const SingleEventValueText = styled(Typography)(({ theme }) =>
     theme.unstable_sx({
         fontSize: theme.spacing(1.5),
-        lineHeight: theme.spacing(2.25)
+        lineHeight: theme.spacing(2.25),
+        wordBreak: 'break-word'
     })
 );
 
