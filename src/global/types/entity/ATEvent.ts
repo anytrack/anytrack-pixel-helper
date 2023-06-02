@@ -11,7 +11,8 @@ export interface ATEvent {
     transactionId: string,
     shippingPrice: string,
     taxPrice: string,
-    items: string[]
+    items: string[],
+    cp: any
 }
 
 export enum StandardEventName {

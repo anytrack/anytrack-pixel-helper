@@ -41,6 +41,30 @@ const getRequestBodyOrPayload = (details: WebRequestBodyDetails): AssetScriptEve
 
 }
 
+const parseCpAttribute = (parsedRequestBody: AssetScriptEvent): any => {
+    const output = Object.entries(parsedRequestBody)
+        .filter(([key, _]) => key.match(/^cp\[(\d+?)\]\[(.+?)\]/) !== null)
+        .reduce((result, [key, value]) => {
+            const parts = key.split(/\[|\]\[|\]/).filter(Boolean);
+
+            parts.reduce((nestedObj, part, index) => {
+                if (index === parts.length - 1) {
+                    nestedObj[part] = value;
+                } else {
+                    if (!nestedObj[part]) {
+                        nestedObj[part] = isNaN(+parts[index + 1]) ? {} : [];
+                    }
+                    return nestedObj[part];
+                }
+            }, result);
+
+            return result;
+        }, {} as any);
+
+    return JSON.stringify(output) === '{}' ? env.DEFAULT_VALUE_AT_EVENT_ATTRIBUTE : output.cp;
+}
+
+
 const convertParsedRequestBodyToATEvent = (parsedRequestBody: AssetScriptEvent): Partial<ATEvent> => {
     const getValueForAttributeWrapper = (attr: keyof AssetScriptEvent): any => {
         return parsedRequestBody[attr] === undefined ? env.DEFAULT_VALUE_AT_EVENT_ATTRIBUTE : parsedRequestBody[attr]
@@ -59,13 +83,21 @@ const convertParsedRequestBodyToATEvent = (parsedRequestBody: AssetScriptEvent):
         transactionId: 'ti',
         shippingPrice: 'sp',
         taxPrice: 'tp',
-        items: 'ei'
+        items: 'ei',
+        cp: 'cp'
     }
 
     const result: Partial<ATEvent> = {}
     Object.keys(mapAttributeFromATScriptEventToATEvent)
         .forEach((attr) => {
             const _attr = attr as keyof ATEvent
+
+            // Specific handler for parameters with the pattern cp[x][y]. E.g. cp[0][type],...
+            if (_attr  === 'cp' && parsedRequestBody.cp === undefined) {
+                result[_attr] = parseCpAttribute(parsedRequestBody)
+                return
+            }
+
             result[_attr] = getValueForAttributeWrapper(mapAttributeFromATScriptEventToATEvent[_attr])
         })
     return result;

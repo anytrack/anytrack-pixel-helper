@@ -11,12 +11,13 @@ type Props = {
 }
 
 const displayedAttributes = ['target', 'eventId', 'clickId', 'clientId', 'eventValue', 'currency',
-     'link', 'brandName', 'transactionId', 'shippingPrice', 'taxPrice', 'items']
+     'link', 'brandName', 'transactionId', 'shippingPrice', 'taxPrice', 'items', 'cp']
 
 const SingleEventArrayValue = (props: any) => {
     const {arrayValue} = props;
     return <List>
         {arrayValue
+            .filter(Boolean)
             .map((value: any, index: number) =>
             <ListItemButton
                 sx={{
@@ -76,7 +77,6 @@ const SingleEventDetail: React.FC<Props> = ({event}) => {
                                 </Typography>
                                 {Array.isArray(value) ? SingleEventArrayValue({arrayValue: value}) :
                                     <SingleEventValueText
-                                        className={"text-truncate"}
                                     >
                                         {displayedValue(value)}
                                     </SingleEventValueText>
