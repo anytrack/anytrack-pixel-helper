@@ -5,6 +5,7 @@ import {ATEvent} from "../../../../global/types/entity/ATEvent";
 import {displayedValue} from "../../../../global/utils";
 import SingleEventValueText from "../../components/SingleEventValueText";
 import env from "../../../../global/env";
+import {green} from "@mui/material/colors";
 
 type Props = {
     event: ATEvent
@@ -32,7 +33,7 @@ const SingleEventArrayValue = (props: any) => {
                     <FiberManualRecordIcon
                         sx={{
                             fontSize: theme => theme.spacing(1),
-                            color: 'text.secondary'
+                            color: green[400]
                         }}
                     />
                 </ListItemIcon>

@@ -2,9 +2,8 @@ import {Box, Collapse, ListItemButton, ListItemIcon, Paper} from '@mui/material'
 import React from 'react';
 import {ATEvent} from "../../../../global/types/entity/ATEvent";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import SingleEventDetail from "./SingleEventDetail";
-import {grey} from '@mui/material/colors';
+import {green, grey} from '@mui/material/colors';
 import {formatDate} from "../../../../global/utils";
 import ListItemText from "../../components/ListItemText";
 import CollapseController from "../../components/CollapseController";
@@ -39,7 +38,8 @@ const SingleEventLog: React.FC<Props> = ({event, index}) => {
                 >
                     <FiberManualRecordIcon
                         sx={{
-                            fontSize: theme => theme.spacing(1)
+                            fontSize: theme => theme.spacing(1),
+                            color: green[400]
                         }}
                     />
                 </ListItemIcon>
