@@ -1,5 +1,11 @@
-import {PixelNetwork, PixelNetworkConfig, PixelNetworkInfo, ScriptInitiator} from "../types/entity/PixelNetwork";
-import {getHostname} from "./index";
+import {
+    PixelNetwork,
+    PixelNetworkConfig,
+    PixelNetworkInfo,
+    ScriptInfo,
+    ScriptInitiator
+} from "../types/entity/PixelNetwork";
+import {getHostname, getParametersFromUrl} from "./index";
 
 export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
     [PixelNetwork.None]: {
@@ -12,30 +18,36 @@ export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
     },
     [PixelNetwork.Outbrain]: {
         hostname: ['tr.outbrain.com'],
-        displayName: 'Outbrain'
+        displayName: 'Outbrain',
+        getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).marketerId
     },
     [PixelNetwork.UniversalAnalytics]: {
         hostname: ['www.googletagmanager.com'],
         additionalCondition: (scriptSrc: string) => scriptSrc.match(/gtag\/js\?id=UA-/) !== null,
-        displayName: 'UA'
+        displayName: 'UA',
+        getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).id
     },
     [PixelNetwork.GA4]: {
         hostname: ['www.googletagmanager.com'],
         additionalCondition: (scriptSrc: string) => scriptSrc.match(/gtag\/js\?id=G-/) !== null,
-        displayName: 'GA4'
+        displayName: 'GA4',
+        getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).id
     },
     [PixelNetwork.GoogleAds]: {
         hostname: ['www.googletagmanager.com'],
         additionalCondition: (scriptSrc: string) => scriptSrc.match(/gtag\/js\?id=AW-/) !== null,
-        displayName: 'Google Ads'
+        displayName: 'Google Ads',
+        getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).id
     },
     [PixelNetwork.Facebook]: {
         hostname: ['www.facebook.com'],
-        displayName: 'Facebook'
+        displayName: 'Facebook',
+        getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).id
     },
     [PixelNetwork.Taboola]: {
         hostname: ['trc.taboola.com'],
-        displayName: 'Taboola'
+        displayName: 'Taboola',
+        getAccountId: (scriptSrc: string) => scriptSrc.split('/')[3]
     },
     [PixelNetwork.TikTok]: {
         hostname: ['analytics.tiktok.com'],
@@ -43,7 +55,8 @@ export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
     },
     [PixelNetwork.Bing]: {
         hostname: ['bat.bing.com'],
-        displayName: 'Bing'
+        displayName: 'Bing',
+        getAccountId: (scriptSrc: string) => scriptSrc.split('/')[5]
     }
 }
 export const identifyPixelNetworkFromScript = (scriptInfo: {[key: string]: any}): PixelNetwork => {
@@ -93,4 +106,14 @@ export const getPixelScripts = (window: Window) => {
 
 export const getDisplayNameForPixelNetwork = (pixelNetwork: PixelNetwork) => {
     return PIXEL_NETWORK_CONFIG[pixelNetwork].displayName + ' ' + 'Pixel'
+}
+
+export const getAccountId = (scriptInfo: ScriptInfo) => {
+    const pixelNetwork = identifyPixelNetworkFromScript(scriptInfo)
+    if (pixelNetwork === PixelNetwork.Bing) {
+        console.log(pixelNetwork, scriptInfo)
+    }
+    if (PIXEL_NETWORK_CONFIG[pixelNetwork].getAccountId !== undefined)
+        return PIXEL_NETWORK_CONFIG[pixelNetwork].getAccountId!(scriptInfo.src)
+    return undefined
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {List} from "@mui/material";
 import SubHeader from "../../components/SubHeader";
 import {
+    getAccountId,
     getPixelScripts,
     identifyPixelNetworkFromScript,
     identifyScriptInitiatorFromScript
@@ -14,11 +15,14 @@ type Props = {
 
 const PixelNetworks: React.FC<Props> = ({}) => {
     const scripts = getPixelScripts(window)
-        .map(scriptInfo => ({
-            scriptInitiator: identifyScriptInitiatorFromScript(scriptInfo, window.pixelNetworkInfo as PixelNetworkInfo),
-            pixelNetwork: identifyPixelNetworkFromScript(scriptInfo),
-            accountId: `${scriptInfo.src}`,
-        }))
+        .map(scriptInfo => {
+            const pixelNetwork = identifyPixelNetworkFromScript(scriptInfo)
+            return {
+                scriptInitiator: identifyScriptInitiatorFromScript(scriptInfo, window.pixelNetworkInfo as PixelNetworkInfo),
+                pixelNetwork,
+                accountId: `${getAccountId(scriptInfo)}`
+            }
+        })
 
     return (
         <>
