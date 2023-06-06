@@ -10,11 +10,12 @@ import CollapseController from "../../components/CollapseController";
 
 type Props = {
     event: ATEvent,
-    index: number
+    index: number,
+    AId: string | undefined
 }
-const SingleEventLog: React.FC<Props> = ({event, index}) => {
+const SingleEventLog: React.FC<Props> = (props) => {
     const [open, setOpen] = React.useState(false);
-
+    const {event, index} = props;
     return (
         <Box
             component={Paper}
@@ -57,7 +58,7 @@ const SingleEventLog: React.FC<Props> = ({event, index}) => {
                 }}
                 timeout={10}
             >
-                <SingleEventDetail event={event}/>
+                <SingleEventDetail {...props}/>
             </Collapse>
         </Box>
     )

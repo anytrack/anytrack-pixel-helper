@@ -134,7 +134,12 @@ const EventLog: React.FC<Props> = ({AId}) => {
         >
             {!atEventLog.length ? <EmptyEventsPlaceHolder/> :
                 atEventLog.map((event, index) => {
-                    return <SingleEventLog event={event} key={event.eventId} index={index}/>
+                    return <SingleEventLog
+                        event={event}
+                        AId={AId}
+                        key={event.eventId}
+                        index={index}
+                    />
                 })}
         </List>
     );

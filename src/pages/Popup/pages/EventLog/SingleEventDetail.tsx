@@ -1,4 +1,4 @@
-import {Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography} from '@mui/material';
+import {Box, Link, List, ListItemButton, ListItemIcon, Typography} from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import React from 'react';
 import {ATEvent} from "../../../../global/types/entity/ATEvent";
@@ -8,11 +8,13 @@ import env from "../../../../global/env";
 import {green} from "@mui/material/colors";
 
 type Props = {
-    event: ATEvent
+    event: ATEvent,
+    AId: string | undefined
 }
 
 const displayedAttributes = ['target', 'eventId', 'clickId', 'clientId', 'eventValue', 'currency',
      'link', 'brandName', 'transactionId', 'shippingPrice', 'taxPrice', 'items', 'cp']
+
 
 const SingleEventArrayValue = (props: any) => {
     const {arrayValue} = props;
@@ -50,7 +52,37 @@ const SingleEventArrayValue = (props: any) => {
         }
     </List>
 }
-const SingleEventDetail: React.FC<Props> = ({event}) => {
+
+const getDisplayedValue = (props: Props, key: string, value: any) => {
+    if (Array.isArray(value))
+        return SingleEventArrayValue({arrayValue: value})
+
+    if (key === 'clientId')
+        return (
+            <Link
+                component="button"
+                variant={"body2"}
+                sx={{
+                    fontSize: (theme) => theme.spacing(1.5),
+                    lineHeight: (theme) => theme.spacing(2.25),
+                    wordBreak: 'break-word',
+                    color: 'unset'
+                }}
+                onClick={() => window.open(`https://dashboard.anytrack.io/events?aid=${props.AId}&query=${value}`)}
+            >
+                {displayedValue(value)}
+            </Link>
+        )
+
+    return (
+        <SingleEventValueText>
+            {displayedValue(value)}
+        </SingleEventValueText>
+    )
+}
+
+const SingleEventDetail: React.FC<Props> = (props) => {
+    const {event} = props
     return (
         <>
             {
@@ -76,12 +108,7 @@ const SingleEventDetail: React.FC<Props> = ({event}) => {
                                 >
                                     {key}
                                 </Typography>
-                                {Array.isArray(value) ? SingleEventArrayValue({arrayValue: value}) :
-                                    <SingleEventValueText
-                                    >
-                                        {displayedValue(value)}
-                                    </SingleEventValueText>
-                                }
+                                {getDisplayedValue(props, key, value)}
                             </Box>
                         )
                     })
