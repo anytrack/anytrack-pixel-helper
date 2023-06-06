@@ -110,9 +110,6 @@ export const getDisplayNameForPixelNetwork = (pixelNetwork: PixelNetwork) => {
 
 export const getAccountId = (scriptInfo: ScriptInfo) => {
     const pixelNetwork = identifyPixelNetworkFromScript(scriptInfo)
-    if (pixelNetwork === PixelNetwork.Bing) {
-        console.log(pixelNetwork, scriptInfo)
-    }
     if (PIXEL_NETWORK_CONFIG[pixelNetwork].getAccountId !== undefined)
         return PIXEL_NETWORK_CONFIG[pixelNetwork].getAccountId!(scriptInfo.src)
     return undefined
