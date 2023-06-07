@@ -17,8 +17,9 @@ export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
         displayName: 'Other'
     },
     [PixelNetwork.Outbrain]: {
-        hostname: ['tr.outbrain.com'],
-        displayName: 'Outbrain'
+        hostname: ['tr.outbrain.com', 'amplify.outbrain.com'],
+        displayName: 'Outbrain',
+        getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).marketerId
     },
     [PixelNetwork.UniversalAnalytics]: {
         hostname: ['www.googletagmanager.com'],
