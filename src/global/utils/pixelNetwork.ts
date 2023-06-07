@@ -18,8 +18,7 @@ export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
     },
     [PixelNetwork.Outbrain]: {
         hostname: ['tr.outbrain.com'],
-        displayName: 'Outbrain',
-        getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).marketerId
+        displayName: 'Outbrain'
     },
     [PixelNetwork.UniversalAnalytics]: {
         hostname: ['www.googletagmanager.com'],
@@ -40,9 +39,14 @@ export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
         getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).id
     },
     [PixelNetwork.Facebook]: {
-        hostname: ['www.facebook.com'],
+        hostname: ['connect.facebook.net'],
         displayName: 'Facebook',
-        getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).id
+        getAccountId: (scriptSrc: string) => {
+            const match = scriptSrc.match(/connect.facebook.net\/signals\/config\/(.+)\?/)
+            if (!match)
+                return undefined
+            return match[1]
+        }
     },
     [PixelNetwork.Taboola]: {
         hostname: ['trc.taboola.com'],
@@ -51,12 +55,18 @@ export const PIXEL_NETWORK_CONFIG: Record<PixelNetwork, PixelNetworkConfig> = {
     },
     [PixelNetwork.TikTok]: {
         hostname: ['analytics.tiktok.com'],
-        displayName: 'TikTok'
+        displayName: 'TikTok',
+        getAccountId: (scriptSrc: string) => getParametersFromUrl(scriptSrc).sdkid
     },
     [PixelNetwork.Bing]: {
         hostname: ['bat.bing.com'],
         displayName: 'Bing',
-        getAccountId: (scriptSrc: string) => scriptSrc.split('/')[5]
+        getAccountId: (scriptSrc: string) => {
+            const match = scriptSrc.match(/bat.bing.com\/p\/action\/(.+?)\.js/)
+            if (!match)
+                return undefined
+            return match[1]
+        }
     }
 }
 export const identifyPixelNetworkFromScript = (scriptInfo: {[key: string]: any}): PixelNetwork => {

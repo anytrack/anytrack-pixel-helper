@@ -33,5 +33,5 @@ export type PixelNetworkConfig = {
     hostname: string[],
     additionalCondition?: (scriptSrc: string) => Boolean,
     displayName: string,
-    getAccountId?: (scriptSrc: string) => string
+    getAccountId?: (scriptSrc: string) => string | undefined
 }

@@ -2,17 +2,22 @@ import {ListItem, ListItemIcon} from '@mui/material';
 import React from 'react';
 import CodeRoundedIcon from '@mui/icons-material/CodeRounded';
 import ListItemText from "../../components/ListItemText";
-import {PixelNetwork, ScriptInitiator} from "../../../../global/types/entity/PixelNetwork";
-import {getDisplayNameForPixelNetwork} from "../../../../global/utils/pixelNetwork";
+import {ScriptInfo} from "../../../../global/types/entity/PixelNetwork";
+import {
+    getAccountId,
+    getDisplayNameForPixelNetwork,
+    identifyPixelNetworkFromScript
+} from "../../../../global/utils/pixelNetwork";
 import CodeBlock from "../../components/CodeBlock";
 
 type Props = {
-    scriptInitiator: ScriptInitiator,
-    pixelNetwork: PixelNetwork,
-    accountId: string
+    scriptInfo: ScriptInfo
 }
 
-const Pixel: React.FC<Props> = ({scriptInitiator, pixelNetwork, accountId}) => {
+const Pixel: React.FC<Props> = ({scriptInfo}) => {
+    const pixelNetwork = identifyPixelNetworkFromScript(scriptInfo)
+    const accountId = getAccountId(scriptInfo)
+
     return (
         <ListItem
             sx={{
@@ -35,7 +40,7 @@ const Pixel: React.FC<Props> = ({scriptInitiator, pixelNetwork, accountId}) => {
             </ListItemIcon>
             <ListItemText
                 primary={getDisplayNameForPixelNetwork(pixelNetwork)}
-                secondary={accountId}
+                secondary={accountId? accountId : scriptInfo.src}
                 sx={{
                     '& pre': {
                         my: 0,
@@ -45,7 +50,7 @@ const Pixel: React.FC<Props> = ({scriptInitiator, pixelNetwork, accountId}) => {
                 }}
                 secondaryTypographyProps={{
                     component: CodeBlock,
-                    eventSnippet: accountId,
+                    eventSnippet: accountId? accountId : scriptInfo.src
                 }}
                 primaryTypographyProps={{
                     ml: 0.5,
